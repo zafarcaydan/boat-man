@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://tsf8e1034g83"]
+
+[ext_resource type="Script" path="res://scripts/basic_enemy.gd" id="1_6bmwm"]
+[ext_resource type="Texture2D" uid="uid://byn0sdcxewlci" path="res://icon.svg" id="2_6p6lj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2e87y"]
+size = Vector2(126, 126)
+
+[node name="Basic Enemy" type="CharacterBody2D" groups=["Enemies", "Spawnable"]]
+collision_layer = 2
+script = ExtResource("1_6bmwm")
+spawn_dist = null
+render_dist = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_2e87y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_6p6lj")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

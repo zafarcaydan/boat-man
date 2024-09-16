@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cv48f81058wt"]
+
+[ext_resource type="Script" path="res://scripts/ball_cache.gd" id="1_hkoa1"]
+[ext_resource type="Texture2D" uid="uid://byn0sdcxewlci" path="res://icon.svg" id="1_vcdla"]
+[ext_resource type="PackedScene" uid="uid://0behtxgyskci" path="res://scenes/interactable.tscn" id="2_rt6iy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_38q6d"]
+radius = 193.041
+
+[node name="Ball Cache" type="Node2D" groups=["Rendered Object", "Spawnable"]]
+script = ExtResource("1_hkoa1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_vcdla")
+
+[node name="interactable" parent="." instance=ExtResource("2_rt6iy")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interactable"]
+shape = SubResource("CircleShape2D_38q6d")

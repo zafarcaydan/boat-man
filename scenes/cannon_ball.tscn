@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dse658b1riy8k"]
+
+[ext_resource type="Script" path="res://scripts/cannon_ball.gd" id="1_231cn"]
+[ext_resource type="Texture2D" uid="uid://byn0sdcxewlci" path="res://icon.svg" id="1_ejiik"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_38qav"]
+size = Vector2(64, 64)
+
+[node name="Cannon Ball" type="Area2D" groups=["Cannon Ball", "Rendered Object"]]
+top_level = true
+collision_mask = 3
+script = ExtResource("1_231cn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_ejiik")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_38qav")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
