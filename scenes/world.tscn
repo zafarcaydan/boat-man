@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=3 uid="uid://dr0ve8yekc04f"]
+
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_1m37y"]
+[ext_resource type="PackedScene" uid="uid://d0hexefo5iwft" path="res://player/boat.tscn" id="1_62j11"]
+[ext_resource type="Texture2D" uid="uid://dg8gs8mipgbta" path="res://ocean.png" id="4_4pma3"]
+
+[node name="world" type="Node2D"]
+script = ExtResource("1_1m37y")
+
+[node name="World Update Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 3.0
+autostart = true
+
+[node name="Boat" parent="." instance=ExtResource("1_62j11")]
+unique_name_in_owner = true
+spawn_dist = 1800
+
+[node name="Camera2D" type="Camera2D" parent="Boat"]
+position_smoothing_speed = 10.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Inventory Bar" type="HBoxContainer" parent="UI/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="UI/MarginContainer/Inventory Bar"]
+layout_mode = 2
+text = "0
+
+"
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(3600, 3600)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_4pma3")
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(3600, 3600)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2(3600, 0)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("4_4pma3")
+
+[connection signal="timeout" from="World Update Timer" to="." method="_on_world_update_timer_timeout"]
+[connection signal="timeout" from="World Update Timer" to="Boat" method="_on_world_update_timer_timeout"]
