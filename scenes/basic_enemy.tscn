@@ -9,6 +9,7 @@ size = Vector2(126, 126)
 [node name="Basic Enemy" type="CharacterBody2D" groups=["Enemies", "Spawnable"]]
 collision_layer = 2
 script = ExtResource("1_6bmwm")
+move_speed = 475
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_2e87y")

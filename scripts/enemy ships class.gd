@@ -1,10 +1,11 @@
 class_name Enemy
 
-extends CharacterBody2D
+extends Boat
 
-var player : Boat 
+var player : Player
 
 func ready():
+	safe_bullets = 1
 	player = get_tree().get_first_node_in_group("Boat")
 	print(get_tree().get_first_node_in_group("Boat"))
 	global_position += player.global_position
