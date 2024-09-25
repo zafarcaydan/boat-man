@@ -24,18 +24,28 @@ position_smoothing_speed = 10.0
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_constants/margin_left = 12
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 12
-theme_override_constants/margin_bottom = 12
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
 
-[node name="Inventory Bar" type="HBoxContainer" parent="UI/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer"]
+layout_mode = 2
+
+[node name="Health Bar" type="ProgressBar" parent="UI/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+
+[node name="Inventory Bar" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Label" type="Label" parent="UI/MarginContainer/Inventory Bar"]
+[node name="Label" type="Label" parent="UI/MarginContainer/VBoxContainer/Inventory Bar"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "0
 
 "

@@ -8,7 +8,7 @@ var parent : Node2D
 var time_passed := 0.0
 var future_pos : Vector2
 
-var cannon_balls : int = 0
+var cannon_balls : int = 10
 @export var spawn_dist = 1600
 @export var render_dist := 5000
 
@@ -18,6 +18,7 @@ var closest_enemy : Enemy
 
 func _ready():
 	health = 10
+	%"Health Bar".max_value = health
 	safe_bullets = 0
 	parent = get_parent()
 	
@@ -50,6 +51,7 @@ func _physics_process(delta):
 	
 	future_pos = global_position + velocity / 4
 	move_and_slide()
+	%"Health Bar".value = health
 	process(delta)
 		
 
@@ -72,7 +74,7 @@ func _on_world_update_timer_timeout():
 		print("INCOMING")
 		for i in range(round(time_passed/4)):
 			var new_enemy = BASIC_ENEMY.instantiate()
-			new_enemy.global_position = Vector2(cos(rotation + i/2), sin(rotation + i/2)) * spawn_dist + global_position 
+			new_enemy.global_position = Vector2(cos(rotation + i/1.25), sin(rotation + i/1.25)) * spawn_dist + global_position 
 			spawn_feature(new_enemy)
 	
 			
