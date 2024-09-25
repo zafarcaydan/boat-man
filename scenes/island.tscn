@@ -14,9 +14,11 @@ radius = 247.032
 script = ExtResource("1_qkcaw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 0.785398
 texture = ExtResource("1_awlcp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 0.785398
 shape = SubResource("RectangleShape2D_56ycq")
 
 [node name="interactable" parent="." instance=ExtResource("3_1jja7")]

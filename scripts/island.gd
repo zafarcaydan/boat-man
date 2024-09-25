@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-var comparison_dist = 1.25
+var comparison_dist = 0.8
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass

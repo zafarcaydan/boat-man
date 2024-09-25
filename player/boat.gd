@@ -59,19 +59,28 @@ func spawn_feature(new_feature):
 	var placeble = true
 	for comparison_feature in get_tree().get_nodes_in_group("Spawnable"):
 		var relative_pos = comparison_feature.global_position - new_feature.global_position
+		
 		if sqrt(relative_pos.x ** 2 + relative_pos.y ** 2) < spawn_dist * new_feature.comparison_dist * comparison_feature.comparison_dist: 
 			placeble = false
 			break
 	if placeble: add_sibling.call_deferred(new_feature)
 
 func _on_world_update_timer_timeout():
-	var offset = randf_range(-PI/8, PI/8)
-	var new_cache = BALL_CACHE.instantiate()
-	new_cache.global_position = Vector2(cos(rotation + offset), sin(rotation + offset)) * spawn_dist + global_position 
-	spawn_feature(new_cache)
+	var spawn_choice = [1, 1, 1, 1, 1, 2].pick_random()
 	
-	if int(time_passed) % 20 >= 0 and int(time_passed) % 20 < %"World Update Timer".wait_time:
-		print("INCOMING")
+	if spawn_choice == 1:
+		var cache_offset = randf_range(-PI/2, PI/2)
+		var new_cache = BALL_CACHE.instantiate()
+		new_cache.global_position = Vector2(cos(rotation + cache_offset), sin(rotation + cache_offset)) * spawn_dist + global_position 
+		spawn_feature(new_cache)
+	
+	elif spawn_choice == 2:
+		var island_offset = randf_range(-PI/12, PI/12)
+		var new_island = ISLAND.instantiate()
+		new_island.global_position = Vector2(cos(rotation + island_offset), sin(rotation + island_offset)) * spawn_dist + global_position 
+		spawn_feature(new_island)
+	
+	if int(time_passed) % 21 >= 0 and int(time_passed) % 21 < %"World Update Timer".wait_time:
 		for i in range(round(time_passed/4)):
 			var new_enemy = BASIC_ENEMY.instantiate()
 			new_enemy.global_position = Vector2(cos(rotation + i/1.25), sin(rotation + i/1.25)) * spawn_dist + global_position 
