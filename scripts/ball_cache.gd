@@ -12,5 +12,5 @@ func _process(_delta):
 	pass
 
 func interact():
-	get_tree().get_first_node_in_group("Boat").cannon_balls += balls
+	get_tree().get_first_node_in_group("Boat").resources[0] += balls
 	queue_free()

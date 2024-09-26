@@ -43,13 +43,6 @@ unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Label" type="Label" parent="UI/MarginContainer/VBoxContainer/Inventory Bar"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "0
-
-"
-
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]

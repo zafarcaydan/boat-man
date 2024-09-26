@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 var safe_bullets : int
 @export var move_speed : int
-var health : int
+var health : float
 const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
 
 func spawn_cannon_ball(direction, type, damage):
