@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://dse658b1riy8k"]
 
 [ext_resource type="Script" path="res://scripts/cannon_ball.gd" id="1_231cn"]
-[ext_resource type="Texture2D" uid="uid://byn0sdcxewlci" path="res://icon.svg" id="1_ejiik"]
+[ext_resource type="Texture2D" uid="uid://dc7ff3kfhu8w1" path="res://cannon ball.png" id="2_23ys6"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_38qav"]
-size = Vector2(64, 64)
+[sub_resource type="CircleShape2D" id="CircleShape2D_848xo"]
+radius = 23.0217
 
 [node name="Cannon Ball" type="Area2D" groups=["Cannon Ball", "Rendered Object"]]
 top_level = true
@@ -12,10 +12,10 @@ collision_mask = 3
 script = ExtResource("1_231cn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_ejiik")
+scale = Vector2(4, 4)
+texture = ExtResource("2_23ys6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_38qav")
+shape = SubResource("CircleShape2D_848xo")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

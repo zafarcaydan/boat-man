@@ -1,5 +1,4 @@
 extends Node2D
-const ISLAND = preload("res://scenes/island.tscn")
 @onready var player = $Boat
 var spawn_dist = 1
 

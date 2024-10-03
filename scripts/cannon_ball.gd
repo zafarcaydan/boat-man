@@ -9,11 +9,10 @@ func _process(delta):
 	position += move_direction * delta
 	
 func _on_body_entered(body):
-	if body.is_in_group("Islands"):
-		queue_free()
-	
 	if body is Boat:
 		if type != body.safe_bullets: 
-			queue_free()
 			body.health -= damage
+			queue_free()
+	
+	else: queue_free()
 			

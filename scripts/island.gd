@@ -1,14 +1,11 @@
-extends StaticBody2D
+extends OceanFeature
 
-var comparison_dist = 0.8
+var unused := true
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass
-
 func interact():
-	print("you interacted with an island")
+	if unused:
+		unused = false
+		get_tree().get_first_node_in_group("Boat").health += 1

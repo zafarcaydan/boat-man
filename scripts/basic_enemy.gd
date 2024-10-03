@@ -17,7 +17,6 @@ func _physics_process(delta):
 	state_actions()
 	
 	if velocity != Vector2(0, 0): 
-		move_and_slide()
 		rotation = atan2(velocity.y, velocity.x)
 	
 	process(delta)
@@ -31,21 +30,21 @@ func state_actions():
 		
 		
 		STATES.TOWARD: 
-			velocity = Vector2(1,0).rotated(get_rotation_to_pos(player.global_position)) * move_speed
+			force = Vector2(1,0).rotated(get_rotation_to_pos(player.global_position)) 
 			if get_dist_to_pos(player.global_position) < 600: 
 				$Timer.start(1)
 				state = STATES.ATTACK
 		
 		
 		STATES.ATTACK: 
-			velocity = Vector2(1,0).rotated(get_rotation_to_pos(player.future_pos)) * move_speed/4
+			force = Vector2(1,0).rotated(get_rotation_to_pos(player.future_pos)) / 4
 			if get_dist_to_pos(player.global_position) > 650: 
 				state = STATES.TOWARD
 			if get_dist_to_pos(player.global_position) < 275:
 				state = STATES.AWAY
 		
 		STATES.AWAY: 
-			velocity = Vector2(1,0).rotated(get_rotation_to_pos(player.global_position) + PI) * move_speed
+			force = Vector2(1,0).rotated(get_rotation_to_pos(player.global_position) + PI) 
 			if get_dist_to_pos(player.global_position) > 650: 
 				state = STATES.TOWARD
 			
@@ -53,5 +52,12 @@ func state_actions():
 
 func _on_timer_timeout():
 	if state == STATES.ATTACK:
-		spawn_cannon_ball(rotation, safe_bullets, 1)
+		spawn_cannon_ball(rotation, safe_bullets, 1, 500)
 		state = STATES.AWAY
+
+
+func _on_death():
+	var new_cache = CACHE.instantiate()
+	new_cache.global_position = global_position
+	new_cache.item_type = GT.resource_types.Wood
+	add_sibling.call_deferred(new_cache)

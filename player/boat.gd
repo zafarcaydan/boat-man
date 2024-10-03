@@ -2,16 +2,14 @@ class_name Player
 extends Boat
 #Node.signal.connect(method)
 const ISLAND = preload("res://scenes/island.tscn")
-const BALL_CACHE = preload("res://scenes/ball_cache.tscn")
 const BASIC_ENEMY = preload("res://scenes/basic_enemy.tscn")
 const INVENTORY_SLOT = preload("res://scenes/inventory_slot.tscn")
 var parent : Node2D
 var time_passed := 0.0
 var future_pos : Vector2
 
-enum resource_types {CANNON_BALLS = 0, WOOD = 1} #make all values in acending order, one by one starting from zero, doing it in another manner WILL cause an error
+#{Cannon_Balls = 0, Wood = 1} 
 var resources := {}
-var cannon_balls : int = 10
 @export var spawn_dist = 1600
 @export var render_dist := 5000
 
@@ -19,10 +17,15 @@ var closest_enemy : Enemy
 
 
 func _ready():
-	for i in resource_types.values():
-		resources[i] = 0
+	var rescource_names = []
+	for i in GT.resource_types:
+		rescource_names.append(i.replace("_", " ") + ": ")
+	for i in GT.resource_types.values():
+		resources[i] = [10, rescource_names[i]]
 		%"Inventory Bar".add_child(INVENTORY_SLOT.instantiate())
+	rescource_names = null
 	update_inventory_display()
+	
 	health = 10
 	%"Health Bar".max_value = health
 	safe_bullets = 0
@@ -30,9 +33,9 @@ func _ready():
 	
 func _input(event):
 			
-	if event.is_action_pressed("Key_Space") and resources[resource_types.CANNON_BALLS] >= 1:
-		spawn_cannon_ball(rotation, safe_bullets, 1)
-		resources[resource_types.CANNON_BALLS] -= 1
+	if event.is_action_pressed("Key_Space") and resources[GT.resource_types.Cannon_Balls][0] >= 1:
+		spawn_cannon_ball(rotation, safe_bullets, 1, 500)
+		resources[GT.resource_types.Cannon_Balls][0] -= 1
 		update_inventory_display()
 		
 	if event.is_action_pressed("Key_E"):
@@ -43,19 +46,23 @@ func _physics_process(delta):
 	var move_velocity =  Input.get_vector("Key_A", "Key_D", "Key_W", "Key_S")
 	if move_velocity.x > 0: rotation += PI * delta 
 	elif move_velocity.x < 0: rotation -= PI * delta 
-	if move_velocity.y < 0: velocity = Vector2(1,0).rotated(global_rotation) * move_speed
-	elif move_velocity.y > 0: velocity = Vector2(1,0).rotated(global_rotation + PI) * (move_speed + 2)
-	else: velocity = Vector2(0,0)
+	if move_velocity.y < 0: force = Vector2(1,0).rotated(global_rotation)
+	elif move_velocity.y > 0: force = Vector2(1,0).rotated(global_rotation + PI) * 0.93
+	else: force = Vector2(0,0)
+
+	
+	
+	
 	time_passed += delta
 	
-	future_pos = global_position + velocity / 4
-	move_and_slide()
+	
 	%"Health Bar".value = health
 	process(delta)
+	future_pos = global_position + velocity / 4
 	
 func update_inventory_display():
-	for i in resource_types.values():
-		%"Inventory Bar".get_child(i).get_child(0).text = str(resources[i])
+	for i in GT.resource_types.values():
+		%"Inventory Bar".get_child(i).get_child(0).text = resources[i][1] + str(resources[i][0])
 		
 
 func spawn_feature(new_feature):
@@ -66,28 +73,32 @@ func spawn_feature(new_feature):
 		if sqrt(relative_pos.x ** 2 + relative_pos.y ** 2) < spawn_dist * new_feature.comparison_dist * comparison_feature.comparison_dist: 
 			placeble = false
 			break
-	if placeble: add_sibling.call_deferred(new_feature)
+	if placeble: 
+		add_sibling.call_deferred(new_feature)
 
 func _on_world_update_timer_timeout():
-	var spawn_choice = [1, 1, 1, 1, 1, 2].pick_random()
+	for i in range(2):
+		var spawn_choice = [1, 1, 1, 1, 1, 2].pick_random()
+		var offset := i * PI
 	
-	if spawn_choice == 1:
-		var cache_offset = randf_range(-PI/2, PI/2)
-		var new_cache = BALL_CACHE.instantiate()
-		new_cache.global_position = Vector2(cos(rotation + cache_offset), sin(rotation + cache_offset)) * spawn_dist + global_position 
-		spawn_feature(new_cache)
+		if spawn_choice == 1:
+			offset += randf_range(-PI/2, PI/2)
+			var new_cache = CACHE.instantiate()
+			new_cache.global_position = Vector2(cos(rotation + offset), sin(rotation + offset)) * spawn_dist + global_position 
+			new_cache.item_type = GT.resource_types.Cannon_Balls
+			spawn_feature(new_cache)
 	
-	elif spawn_choice == 2:
-		var island_offset = randf_range(-PI/12, PI/12)
-		var new_island = ISLAND.instantiate()
-		new_island.global_position = Vector2(cos(rotation + island_offset), sin(rotation + island_offset)) * spawn_dist + global_position 
-		spawn_feature(new_island)
-	
-	if int(time_passed) % 21 >= 0 and int(time_passed) % 21 < %"World Update Timer".wait_time:
-		for i in range(round(time_passed/4)):
-			var new_enemy = BASIC_ENEMY.instantiate()
-			new_enemy.global_position = Vector2(cos(rotation + i/1.25), sin(rotation + i/1.25)) * spawn_dist + global_position 
-			spawn_feature(new_enemy)
+		elif spawn_choice == 2:
+			offset += randf_range(-PI/12, PI/12)
+			var new_island = ISLAND.instantiate()
+			new_island.global_position = Vector2(cos(rotation + offset), sin(rotation + offset)) * spawn_dist + global_position 
+			spawn_feature(new_island)
+		
+		if int(time_passed) % 21 >= 0 and int(time_passed) % 21 < %"World Update Timer".wait_time:
+			for j in range(round(time_passed/5)):
+				var new_enemy = BASIC_ENEMY.instantiate()
+				new_enemy.global_position = Vector2(cos(rotation + j/1.25), sin(rotation + j/1.25)) * spawn_dist + global_position 
+				spawn_feature(new_enemy)
 	
 			
 	

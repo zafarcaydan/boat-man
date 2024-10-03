@@ -20,4 +20,5 @@ texture = ExtResource("2_6p6lj")
 
 [node name="Timer" type="Timer" parent="."]
 
+[connection signal="death" from="." to="." method="_on_death"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
