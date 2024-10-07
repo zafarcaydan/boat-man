@@ -2,7 +2,6 @@ extends Enemy
 enum STATES {TOWARD, ATTACK, AWAY}
 var state : STATES = STATES.TOWARD
 
-var future_pos : Vector2
 var comparison_dist = 0
 
 
@@ -10,7 +9,6 @@ func _ready():
 	ready()
 	health = 2
 	get_parent().get_child(0).timeout.connect(_on_world_update_timer_timeout)
-	get_parent().get_child(0)
 	
 
 func _physics_process(delta):
@@ -57,7 +55,8 @@ func _on_timer_timeout():
 
 
 func _on_death():
-	var new_cache = CACHE.instantiate()
-	new_cache.global_position = global_position
-	new_cache.item_type = GT.resource_types.Wood
-	add_sibling.call_deferred(new_cache)
+	if randf() < 0.2:
+		var new_cache = CACHE.instantiate()
+		new_cache.global_position = global_position
+		new_cache.item_type = GT.resource_types.Wood
+		add_sibling.call_deferred(new_cache)

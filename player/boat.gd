@@ -2,7 +2,7 @@ class_name Player
 extends Boat
 #Node.signal.connect(method)
 const ISLAND = preload("res://scenes/island.tscn")
-const BASIC_ENEMY = preload("res://scenes/basic_enemy.tscn")
+const BASIC_ENEMY = preload("res://enimies/basic_enemy.tscn")
 const INVENTORY_SLOT = preload("res://scenes/inventory_slot.tscn")
 var parent : Node2D
 var time_passed := 0.0
@@ -26,8 +26,8 @@ func _ready():
 	rescource_names = null
 	update_inventory_display()
 	
-	health = 10
-	%"Health Bar".max_value = health
+	health = 5
+	%"Health Bar".max_value = health * 2
 	safe_bullets = 0
 	parent = get_parent()
 	
@@ -39,7 +39,8 @@ func _input(event):
 		update_inventory_display()
 		
 	if event.is_action_pressed("Key_E"):
-		get_tree().call_group("Interactable", "interact")
+		for area in $Area2D.get_overlapping_areas():
+			if area.is_in_group("Interactable"): area.get_parent().interact()
 		update_inventory_display()
 
 func _physics_process(delta):
@@ -66,6 +67,7 @@ func update_inventory_display():
 		
 
 func spawn_feature(new_feature):
+
 	var placeble = true
 	for comparison_feature in get_tree().get_nodes_in_group("Spawnable"):
 		var relative_pos = comparison_feature.global_position - new_feature.global_position
@@ -78,7 +80,7 @@ func spawn_feature(new_feature):
 
 func _on_world_update_timer_timeout():
 	for i in range(2):
-		var spawn_choice = [1, 1, 1, 1, 1, 2].pick_random()
+		var spawn_choice = [1, 1, 1, 1, 2].pick_random()
 		var offset := i * PI
 	
 		if spawn_choice == 1:

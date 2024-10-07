@@ -12,9 +12,7 @@ func _process(_delta):
 
 func interact():
 	if item_type == GT.resource_types.Cannon_Balls:
-		get_tree().get_first_node_in_group("Boat").resources[GT.resource_types.Cannon_Balls][0] += randi_range(2, 6)
+		GT.get_player().resources[GT.resource_types.Cannon_Balls][0] += randi_range(2, 6)
 	elif item_type == GT.resource_types.Wood:
-		var q= randi_range(2, 6)
-		print(q)
-		get_tree().get_first_node_in_group("Boat").resources[GT.resource_types.Wood][0] += q
+		GT.get_player().resources[GT.resource_types.Wood][0] += randi_range(1, 2)
 	queue_free()

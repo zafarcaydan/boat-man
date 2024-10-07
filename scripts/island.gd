@@ -6,6 +6,9 @@ func _ready():
 	pass
 
 func interact():
-	if unused:
+	if unused and GT.get_player().resources[GT.resource_types.Wood][0] > 5:
+		GT.get_player().resources[GT.resource_types.Wood][0] -= 5
 		unused = false
-		get_tree().get_first_node_in_group("Boat").health += 1
+		GT.get_player().health += 1
+		
+	if not unused: $StaticBody2D/Sprite2D.rotation = PI * 0.75

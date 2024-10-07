@@ -6,8 +6,9 @@ var player : Player
 
 func ready():
 	safe_bullets = 1
-	player = get_tree().get_first_node_in_group("Boat")
+	player = GT.get_player()
 	global_position += player.global_position
+	move_speed += randi_range(-20, 20)
 
 func get_dist_to_pos(pos):
 		return abs(sqrt((global_position.y - pos.y) ** 2 + (global_position.x - pos.x) ** 2))

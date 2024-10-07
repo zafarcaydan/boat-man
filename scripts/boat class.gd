@@ -20,18 +20,19 @@ func spawn_cannon_ball(direction, type, damage, speed):
 	
 func process(delta):
 	if health <= 0:
-		if self is Player: get_tree().reload_current_scene.call_deferred()
+		if self is Player: get_tree().change_scene_to_packed(load("res://scenes/start_menu.tscn"))
 		else: death.emit()
 		queue_free()
 	
 	var velocity_power : float = (abs(velocity.x) + abs(velocity.y)) / 2
 		
 	if velocity_power > move_speed:
+		print(1)
 		velocity = velocity.normalized()
 		var velocity_direction := atan2(velocity.y, velocity.x)
 		velocity= Vector2(cos(velocity_direction), sin(velocity_direction))
 	
-	velocity *= 0.93
-	velocity += force * move_speed / (velocity_power/26 + 1)
+	velocity *= 0.936
+	velocity += force * move_speed / (velocity_power/24 + 1)
 	
 	move_and_slide()

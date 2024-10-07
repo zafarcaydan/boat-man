@@ -7,8 +7,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3882g"]
 size = Vector2(128, 126)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_et863"]
-radius = 161.078
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_00d4a"]
+size = Vector2(127.279, 127.279)
 
 [node name="Island" type="Node2D" groups=["Rendered Object", "Spawnable"]]
 script = ExtResource("1_rprj1")
@@ -27,4 +27,6 @@ texture = ExtResource("1_wv7ni")
 [node name="interactable" parent="." instance=ExtResource("2_d3fio")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="interactable"]
-shape = SubResource("CircleShape2D_et863")
+rotation = 0.785398
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_00d4a")
