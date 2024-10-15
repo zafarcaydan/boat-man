@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dr0ve8yekc04f"]
+[gd_scene load_steps=5 format=3 uid="uid://dr0ve8yekc04f"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_1m37y"]
 [ext_resource type="PackedScene" uid="uid://d0hexefo5iwft" path="res://player/boat.tscn" id="1_62j11"]
+[ext_resource type="Script" path="res://scripts/upgrade_menu_buttons.gd" id="3_5wt7h"]
 [ext_resource type="Texture2D" uid="uid://dg8gs8mipgbta" path="res://ocean.png" id="4_4pma3"]
 
 [node name="world" type="Node2D"]
@@ -14,7 +15,6 @@ autostart = true
 
 [node name="Boat" parent="." instance=ExtResource("1_62j11")]
 unique_name_in_owner = true
-spawn_dist = 1800
 
 [node name="Camera2D" type="Camera2D" parent="Boat"]
 position_smoothing_speed = 10.0
@@ -37,6 +37,11 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
+
+[node name="Button" type="Button" parent="UI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("3_5wt7h")
+button_id = &"cannon_ball_speed"
 
 [node name="Inventory Bar" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true

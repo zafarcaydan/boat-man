@@ -2,13 +2,13 @@ extends OceanFeature
 
 var unused := true
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
+func _ready() -> void:
+	ocean_feature_ready()
 
-func interact():
-	if unused and GT.get_player().resources[GT.resource_types.Wood][0] > 5:
-		GT.get_player().resources[GT.resource_types.Wood][0] -= 5
+func interact() -> void:
+	if unused and player.check_resource_value(GT.resource_types.Wood, 5):
+		player.change_resource_value(GT.resource_types.Wood, -5)
 		unused = false
-		GT.get_player().health += 1
+		player.health += 2
 		
-	if not unused: $StaticBody2D/Sprite2D.rotation = PI * 0.75
+	if not unused: $StaticBody2D.rotation = PI * 1.75

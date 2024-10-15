@@ -1,18 +1,13 @@
 extends OceanFeature
-var item_type : GT.resource_types = -1
+var item_type : GT.resource_types
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
+func _ready() -> void :
+	ocean_feature_ready()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	pass
-
-func interact():
+func interact() -> void :
 	if item_type == GT.resource_types.Cannon_Balls:
-		GT.get_player().resources[GT.resource_types.Cannon_Balls][0] += randi_range(2, 6)
+		GT.get_player().change_resource_value(GT.resource_types.Cannon_Balls, randi_range(2, 6))
 	elif item_type == GT.resource_types.Wood:
-		GT.get_player().resources[GT.resource_types.Wood][0] += randi_range(1, 2)
+		GT.get_player().change_resource_value(GT.resource_types.Wood, randi_range(1, 2))
 	queue_free()

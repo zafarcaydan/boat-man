@@ -6,7 +6,7 @@ var comparison_dist = 0
 
 
 func _ready():
-	ready()
+	enemy_ready()
 	health = 2
 	get_parent().get_child(0).timeout.connect(_on_world_update_timer_timeout)
 	

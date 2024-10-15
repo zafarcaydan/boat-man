@@ -2,35 +2,30 @@ extends Enemy
 enum STATES {TOWARD, ATTACK, AWAY}
 var state : STATES = STATES.TOWARD
 
-var comparison_dist = 0
+var comparison_dist := 0
 
 
-func _ready():
-	ready()
-	health = 2
-	get_parent().get_child(0).timeout.connect(_on_world_update_timer_timeout)
+func _ready() -> void:
+	enemy_ready(4)
 	
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	state_actions()
 	
 	if velocity != Vector2(0, 0): 
 		rotation = atan2(velocity.y, velocity.x)
 	
 	process(delta)
-		
-func _on_world_update_timer_timeout():
-	pass
 
 
-func state_actions():
+func state_actions() -> void :
 	match state:
 		
 		
 		STATES.TOWARD: 
 			force = Vector2(1,0).rotated(get_rotation_to_pos(player.global_position)) 
 			if get_dist_to_pos(player.global_position) < 600: 
-				$Timer.start(1)
+				$Timer.start(0.8)
 				state = STATES.ATTACK
 		
 		
@@ -48,15 +43,15 @@ func state_actions():
 			
 
 
-func _on_timer_timeout():
+func _on_timer_timeout() -> void:
 	if state == STATES.ATTACK:
-		spawn_cannon_ball(rotation, safe_bullets, 1, 500)
+		spawn_cannon_ball(rotation, safe_bullets, 500)
 		state = STATES.AWAY
 
 
-func _on_death():
+func _on_death() -> void:
 	if randf() < 0.2:
-		var new_cache = CACHE.instantiate()
+		var new_cache := CACHE.instantiate()
 		new_cache.global_position = global_position
 		new_cache.item_type = GT.resource_types.Wood
 		add_sibling.call_deferred(new_cache)
