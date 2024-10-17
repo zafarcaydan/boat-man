@@ -17,7 +17,8 @@ func spawn_cannon_ball(direction : float, type : int, speed : int) -> void:
 	new_cannon_ball.rotation = direction
 	new_cannon_ball.move_direction = Vector2(cos(new_cannon_ball.rotation), sin(new_cannon_ball.rotation)) * speed
 	new_cannon_ball.global_position = global_position + new_cannon_ball.move_direction.normalized() * 125
-	if speed >= 500: new_cannon_ball.damage = round((speed - 500)/30)  + 2
+	print(speed)
+	if speed > 500: new_cannon_ball.damage = round((speed - 500)/30)  + 2
 	else: new_cannon_ball.damage = 2
 	new_cannon_ball.type = type
 	add_child(new_cannon_ball)
@@ -29,13 +30,13 @@ func process(_delta:float) -> void:
 		queue_free()
 	
 	var velocity_power : float = (abs(velocity.x) + abs(velocity.y))
-		
+	velocity += force * move_speed / (velocity_power/24 + 1)
 	if velocity_power > move_speed:
 		velocity = velocity.normalized()
 		var velocity_direction := atan2(velocity.y, velocity.x)
-		velocity= Vector2(cos(velocity_direction), sin(velocity_direction))
+		velocity = Vector2(cos(velocity_direction), sin(velocity_direction))
 	
 	velocity *= 0.936
-	velocity += force * move_speed / (velocity_power/24 + 1)
+	
 	
 	move_and_slide()

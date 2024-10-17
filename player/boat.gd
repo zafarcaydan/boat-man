@@ -24,7 +24,7 @@ func _ready() -> void:
 	var rescource_names := []
 	for i in GT.resource_types: rescource_names.append(i.replace("_", " ") + ": ")
 	for i in GT.resource_types.values():
-		resources[i] = [10, rescource_names[i]]
+		resources[i] = [0, GT.resource_types.find_key(i).replace("_", " ") + ": "]
 		%"Inventory Bar".add_child(INVENTORY_SLOT.instantiate())
 	update_inventory_display()
 	
@@ -89,6 +89,7 @@ func _on_world_update_timer_timeout() -> void:
 			offset += randf_range(-PI/12, PI/12)
 			var new_island := ISLAND.instantiate()
 			new_island.global_position = Vector2(cos(rotation + offset), sin(rotation + offset)) * spawn_dist + global_position 
+			print(new_island.type)
 			spawn_feature(new_island)
 		
 		if int(time_passed) % 28 >= 0 and int(time_passed) % 28 < %"World Update Timer".wait_time:
@@ -99,19 +100,30 @@ func _on_world_update_timer_timeout() -> void:
 				
 #upgrade & inventory handling
 func check_resource_value(changed_resource:GT.resource_types, value : int) -> bool:
-	if resources[changed_resource][0] >= value: return true
+	if value + resources[changed_resource][0] >= 0: return true
 	return false
 	
 func change_resource_value(changed_resource:GT.resource_types, value : int) -> void:
 	if value + resources[changed_resource][0] >= 0:
 		resources[changed_resource][0] += value
 		update_inventory_display()
+		
+func cost_evaluation_and_action(button: UpgradeMenuButton) -> bool:
+	for i in button.costs:
+		if not check_resource_value(i[0], i[1]):
+			return false
+	for i in button.costs:
+		change_resource_value(i[0], i[1])
+	return true
 
-func upgrade_button_pressed(button_id: StringName) -> void:
-	if button_id == &"cannon_ball_speed" and check_resource_value(GT.resource_types.Cannon_Balls, 1) and check_resource_value(GT.resource_types.Wood, 2):
-		change_resource_value(GT.resource_types.Cannon_Balls, -1)
-		change_resource_value(GT.resource_types.Wood, -2)
-		stats[&"cannon_ball_speed"] += 18
+func upgrade_button_pressed(button: UpgradeMenuButton) -> void:
+	if cost_evaluation_and_action(button):
+		if button.button_id == &"cannon_ball_speed": stats[&"cannon_ball_speed"] += 18
+		elif button.button_id == &"stone": 
+			button.queue_free()
+			resources[GT.resource_types.Stone][0] += 5
+		elif button.button_id ==  &"repair":
+			health += 2
 	
 func update_inventory_display() -> void:
 	for i in GT.resource_types.values():
