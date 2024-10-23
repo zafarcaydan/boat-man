@@ -17,7 +17,6 @@ func spawn_cannon_ball(direction : float, type : int, speed : int) -> void:
 	new_cannon_ball.rotation = direction
 	new_cannon_ball.move_direction = Vector2(cos(new_cannon_ball.rotation), sin(new_cannon_ball.rotation)) * speed
 	new_cannon_ball.global_position = global_position + new_cannon_ball.move_direction.normalized() * 125
-	print(speed)
 	if speed > 500: new_cannon_ball.damage = round((speed - 500)/30)  + 2
 	else: new_cannon_ball.damage = 2
 	new_cannon_ball.type = type

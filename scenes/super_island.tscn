@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://gjtnk3sgufll"]
+
+[ext_resource type="Script" path="res://scripts/super_island.gd" id="1_q7nx8"]
+[ext_resource type="Texture2D" uid="uid://byn0sdcxewlci" path="res://icon.svg" id="2_aqagb"]
+[ext_resource type="PackedScene" uid="uid://cfngicf5yer18" path="res://scenes/island.tscn" id="3_jqdud"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ts0v"]
+size = Vector2(383.252, 366.281)
+
+[node name="Super Island" type="Node2D" groups=["Super Island"]]
+script = ExtResource("1_q7nx8")
+comparison_dist = 1000.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["Super Island"]]
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+rotation = 0.785398
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_6ts0v")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+rotation = 0.785398
+scale = Vector2(3, 3)
+texture = ExtResource("2_aqagb")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Island" parent="Node2D" groups=["Super Island"] instance=ExtResource("3_jqdud")]
+position = Vector2(900, -1559)
+
+[node name="Island2" parent="Node2D" groups=["Super Island"] instance=ExtResource("3_jqdud")]
+position = Vector2(-900, -1559)
+type = 1
+
+[node name="Island3" parent="Node2D" groups=["Super Island"] instance=ExtResource("3_jqdud")]
+position = Vector2(1800, 0)
+
+[node name="Island4" parent="Node2D" groups=["Super Island"] instance=ExtResource("3_jqdud")]
+position = Vector2(-900, 1559)
+type = 1
+
+[node name="Island5" parent="Node2D" groups=["Super Island"] instance=ExtResource("3_jqdud")]
+position = Vector2(-1800, 0)
+
+[node name="Island6" parent="Node2D" groups=["Super Island"] instance=ExtResource("3_jqdud")]
+position = Vector2(900, 1559)
+type = 1

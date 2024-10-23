@@ -1,5 +1,5 @@
 extends OceanFeature
-var item_type : GT.resource_types
+@export var item_type : GT.resource_types
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void :

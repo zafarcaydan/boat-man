@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://d0hexefo5iwft"]
+[gd_scene load_steps=6 format=3 uid="uid://d0hexefo5iwft"]
 
 [ext_resource type="Script" path="res://player/boat.gd" id="1_wvsoj"]
 [ext_resource type="Texture2D" uid="uid://cyib1cau76t3c" path="res://player/boat.png" id="2_degx4"]
+[ext_resource type="Texture2D" uid="uid://byn0sdcxewlci" path="res://icon.svg" id="3_ahqw8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_maeq3"]
 size = Vector2(97, 56)
@@ -21,10 +22,20 @@ scale = Vector2(6, 6)
 texture = ExtResource("2_degx4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(-22.5, 0)
 shape = SubResource("RectangleShape2D_maeq3")
 
 [node name="Area2D" type="Area2D" parent="."]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_6jjwt")
+
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+top_level = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+position = Vector2(500, 0)
+texture = ExtResource("3_ahqw8")

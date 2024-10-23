@@ -2,7 +2,6 @@ extends Enemy
 enum STATES {TOWARD, ATTACK, AWAY}
 var state : STATES = STATES.TOWARD
 
-var comparison_dist := 0
 
 
 func _ready() -> void:
@@ -21,11 +20,10 @@ func _physics_process(delta: float) -> void:
 func state_actions() -> void :
 	match state:
 		
-		
 		STATES.TOWARD: 
 			force = Vector2(1,0).rotated(get_rotation_to_pos(player.global_position)) 
-			if get_dist_to_pos(player.global_position) < 600: 
-				$Timer.start(0.8)
+			if get_dist_to_pos(player.global_position) < 6250: 
+				$Timer.start(0.86)
 				state = STATES.ATTACK
 		
 		

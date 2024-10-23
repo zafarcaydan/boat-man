@@ -12,5 +12,6 @@ func _on_body_entered(body: PhysicsBody2D) -> void:
 	if body is Boat:
 		if type != body.safe_bullets: 
 			body.health -= damage
+		body.velocity += move_direction / 2
 	queue_free()
 			
