@@ -8,6 +8,7 @@ size = Vector2(128, 126)
 
 [node name="Island" type="Node2D" groups=["Rendered Object", "Spawnable"]]
 script = ExtResource("1_rprj1")
+type = -1
 comparison_dist = 1.2
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]

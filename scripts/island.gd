@@ -30,6 +30,9 @@ func interact() -> void:
 		elif type == GT.island_types.Wood:
 			post_button([[1,-5], [2, -1]], &"repair", 1, true)
 			post_button([[GT.resource_types.Wood, 4]], &"wood", 2, false)
+		
+		elif type == GT.island_types.NULL:
+			post_button([], &"null", 1, false)
 			
 		
 		

@@ -31,7 +31,7 @@ func _ready() -> void:
 		%"Inventory Bar".add_child(INVENTORY_SLOT.instantiate())
 	update_inventory_display()
 	
-	health = 16
+	health = 200
 	%"Health Bar".max_value = health * 2
 	safe_bullets = 0
 	parent = get_parent()
@@ -99,15 +99,16 @@ func _on_world_update_timer_timeout() -> void:
 			new_island.global_position = Vector2(cos(rotation + offset), sin(rotation + offset)) * spawn_dist + global_position 
 			spawn_feature(new_island)
 		
-		if int(time_passed) % 32 >= 0 and int(time_passed) % 32 < %"World Update Timer".wait_time and not $Node2D.visible:
-			for j in range(16):
-				var new_enemy := BASIC_ENEMY.instantiate()
-				new_enemy.global_position = Vector2(cos(rotation + j/1.25), sin(rotation + j/1.25)) * spawn_dist
-				%Enemies.add_sibling.call_deferred(new_enemy)
-				
-		if int(time_passed) >= 36 and int(time_passed) <= 36 + %"World Update Timer".wait_time:
-			var new_super_island = SUPER_ISLAND.instantiate()
+		#if int(time_passed) % 36 >= 0 and int(time_passed) % 36 < %"World Update Timer".wait_time and not $Node2D.visible:
+		#	for j in range(12):
+		#		var new_enemy := BASIC_ENEMY.instantiate()
+		#		new_enemy.global_position = Vector2(cos(rotation + j/1.25), sin(rotation + j/1.25)) * spawn_dist
+		#		add_sibling.call_deferred(new_enemy)
+		#		
+		if int(time_passed) >= 24 and int(time_passed) <= 24 + %"World Update Timer".wait_time and not $Node2D.visible:
+			var new_super_island := SUPER_ISLAND.instantiate()
 			new_super_island.global_position == global_position + Vector2.RIGHT.rotated(randf_range(-PI, PI)) * spawn_dist * 40
+			new_super_island.type = GT.super_island_types.FIRST
 			$Node2D.visible = true
 			add_sibling.call_deferred(new_super_island)
 				
@@ -132,11 +133,18 @@ func cost_evaluation_and_action(button: UpgradeMenuButton) -> bool:
 
 func upgrade_button_pressed(button: UpgradeMenuButton) -> void:
 	if cost_evaluation_and_action(button):
-		if button.button_id == &"cannon_ball_speed": stats[&"cannon_ball_speed"] += 18
-		elif button.get_parent() == GT.get_ui()[2]: 
+		match button.button_id:
+			&"cannon_ball_speed": stats[&"cannon_ball_speed"] += 18
+			&"repair": health += 2
+			
+			&"collect_horn_piece": pass
+			&"_summon_enemies_round_1": super_island_button_ids(&"_summon_enemies_round_1")
+			&"_summon_enemies_round_2": super_island_button_ids(&"_summon_enemies_round_2")
+			
+		
+		if button.get_parent() == GT.get_ui()[2]: 
 			button.queue_free()
-		elif button.button_id ==  &"repair":
-			health += 2
+		
 	
 func update_inventory_display() -> void:
 	for i in GT.resource_types.values():
@@ -145,3 +153,22 @@ func update_inventory_display() -> void:
 		
 func connect_upgrade_button_signal(button : UpgradeMenuButton) -> void:
 	button.upgrade_button_pressed.connect(upgrade_button_pressed)
+	
+func super_island_button_ids(id: StringName) -> void:
+	match id:
+		&"_summon_enemies_round_1": 
+			for j in range(8):
+				var new_enemy := FAST_ENEMY.instantiate()
+				new_enemy.global_position = Vector2(cos(rotation + j/1.25), sin(rotation + j/1.25)) * spawn_dist
+				add_sibling.call_deferred(new_enemy)
+
+		&"_summon_enemies_round_2":
+			for j in range(3):
+				var new_enemy := FAST_ENEMY.instantiate()
+				new_enemy.global_position = Vector2(cos(rotation + j/1.25), sin(rotation + j/1.25)) * spawn_dist
+				add_sibling.call_deferred(new_enemy)
+			for j in range(8):
+				var new_enemy := BASIC_ENEMY.instantiate()
+				new_enemy.global_position = Vector2(cos(rotation + j/1.25), sin(rotation + j/1.25)) * spawn_dist
+				add_sibling.call_deferred(new_enemy)
+		

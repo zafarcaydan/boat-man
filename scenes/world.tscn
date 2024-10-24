@@ -63,8 +63,5 @@ position = Vector2(3600, 0)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("4_4pma3")
 
-[node name="Enemies" type="Node2D" parent="."]
-unique_name_in_owner = true
-
 [connection signal="timeout" from="World Update Timer" to="." method="_on_world_update_timer_timeout"]
 [connection signal="timeout" from="World Update Timer" to="Boat" method="_on_world_update_timer_timeout"]

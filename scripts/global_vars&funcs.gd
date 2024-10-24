@@ -2,6 +2,7 @@ extends Node
 
 enum resource_types {Cannon_Balls = 0, Wood = 1, Stone = 2} #make all values in acending order, one by one starting from zero, doing it in another manner WILL cause an error
 enum island_types {NULL = -1, Stone = 0, Wood = 1}
+enum super_island_types {FIRST = 1, SECOND = 2, THIRD = 3}
 
 func get_player() -> Player : 
 	return get_tree().get_first_node_in_group("Boat_Node")

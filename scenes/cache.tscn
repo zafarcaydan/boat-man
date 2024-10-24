@@ -8,7 +8,7 @@ size = Vector2(128, 128)
 
 [node name="Cache" type="Node2D" groups=["Rendered Object", "Spawnable"]]
 script = ExtResource("1_5gejl")
-comparison_dist = 1.1
+comparison_dist = 0.8
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_rhj6d")
