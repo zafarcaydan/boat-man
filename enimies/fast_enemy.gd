@@ -7,11 +7,11 @@ var turn_amount := 0.0
 var direction_modifyer : float = [PI/-3, PI / 3].pick_random()
 
 
-func _ready():
+func _ready() -> void:
 	enemy_ready(6)
 	
 
-func _physics_process(delta):
+func _physics_process(delta : float) -> void:
 	state_actions()
 	
 	
@@ -19,7 +19,7 @@ func _physics_process(delta):
 		
 
 
-func state_actions():
+func state_actions() -> void:
 	match state:
 		STATES.TOWARD:
 			

@@ -10,7 +10,7 @@ func _process(delta: float) -> void:
 	
 func _on_body_entered(body: PhysicsBody2D) -> void:
 	if body is Boat:
-		if type != body.safe_bullets: 
+		if type != body.safe_bullets or randf() <= 0.2: 
 			body.health -= damage
 		body.velocity += move_direction / 2
 	queue_free()

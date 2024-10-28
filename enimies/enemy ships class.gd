@@ -3,7 +3,6 @@ class_name Enemy
 extends Boat
 
 var player : Player
-var comparison_dist := 0.0
 
 func enemy_ready(health_value : int) -> void:
 	
@@ -22,8 +21,15 @@ func get_rotation_to_pos(pos: Vector2) -> float:
 		return atan2(pos.y - global_position.y, pos.x - global_position.x)
 
 func upon_death() -> void:
-	if randf() < 0.2:
+	if randf() < 0.29:
 		var new_cache := CACHE.instantiate()
 		new_cache.global_position = global_position
 		new_cache.item_type = GT.resource_types.Wood
 		add_sibling.call_deferred(new_cache)
+	
+	if randf() < 0.08:
+		var new_cache := CACHE.instantiate()
+		new_cache.global_position = global_position
+		new_cache.item_type = GT.resource_types.Cannon_Balls
+		add_sibling.call_deferred(new_cache)
+	

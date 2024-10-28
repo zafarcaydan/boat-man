@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=3 uid="uid://gjtnk3sgufll"]
+
+[ext_resource type="Script" path="res://islands/super_island.gd" id="1_nsl8y"]
+[ext_resource type="Texture2D" uid="uid://cq02yfcdmh846" path="res://islands/islands.png" id="2_6hrat"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iglcc"]
+radius = 208.471
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqpwx"]
+atlas = ExtResource("2_6hrat")
+region = Rect2(144, 144, 144, 144)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l06qy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vqpwx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x1qxa"]
+radius = 10.4005
+
+[node name="Super Island" type="Node2D" groups=["Rendered Object", "Spawnable", "Super Island"]]
+script = ExtResource("1_nsl8y")
+type = 1
+comparison_dist = 6.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("CircleShape2D_iglcc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StaticBody2D"]
+rotation = 4.71239
+scale = Vector2(3, 3)
+sprite_frames = SubResource("SpriteFrames_l06qy")
+autoplay = "default"
+
+[node name="islands" type="Node2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="." groups=["Interactable"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_x1qxa")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

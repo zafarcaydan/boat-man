@@ -9,7 +9,7 @@ size = Vector2(96, 100)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eir2j"]
 size = Vector2(687.75, 151.333)
 
-[node name="fast_enemy" type="CharacterBody2D" groups=["Enemies", "Spawnable"]]
+[node name="fast_enemy" type="CharacterBody2D" groups=["Enemies"]]
 collision_layer = 2
 script = ExtResource("1_kn04t")
 move_speed = 525

@@ -1,0 +1,77 @@
+[gd_scene load_steps=9 format=3 uid="uid://cfngicf5yer18"]
+
+[ext_resource type="Script" path="res://islands/island.gd" id="1_pq8om"]
+[ext_resource type="Texture2D" uid="uid://cq02yfcdmh846" path="res://islands/islands.png" id="2_vkyqi"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_neqdi"]
+radius = 70.214
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nu81u"]
+atlas = ExtResource("2_vkyqi")
+region = Rect2(144, 144, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jum5u"]
+atlas = ExtResource("2_vkyqi")
+region = Rect2(0, 144, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dl8pc"]
+atlas = ExtResource("2_vkyqi")
+region = Rect2(0, 0, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5yjqg"]
+atlas = ExtResource("2_vkyqi")
+region = Rect2(144, 0, 144, 144)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aa22p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nu81u")
+}],
+"loop": true,
+"name": &"Port",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jum5u")
+}],
+"loop": true,
+"name": &"Stone",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dl8pc")
+}],
+"loop": true,
+"name": &"Wood",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5yjqg")
+}],
+"loop": true,
+"name": &"used",
+"speed": 5.0
+}]
+
+[node name="Island" type="Node2D" groups=["Rendered Object", "Spawnable"]]
+script = ExtResource("1_pq8om")
+type = -1
+comparison_dist = 1.08
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("CircleShape2D_neqdi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StaticBody2D"]
+sprite_frames = SubResource("SpriteFrames_aa22p")
+animation = &"used"
+
+[node name="Area2D" type="Area2D" parent="." groups=["Interactable"]]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_neqdi")

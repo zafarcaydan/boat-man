@@ -23,7 +23,7 @@ func state_actions() -> void :
 		STATES.TOWARD: 
 			force = Vector2(1,0).rotated(get_rotation_to_pos(player.global_position)) 
 			if get_dist_to_pos(player.global_position) < 6250: 
-				$Timer.start(0.86)
+				$Timer.start(0.9)
 				state = STATES.ATTACK
 		
 		
@@ -43,10 +43,9 @@ func state_actions() -> void :
 
 func _on_timer_timeout() -> void:
 	if state == STATES.ATTACK:
-		spawn_cannon_ball(rotation, safe_bullets, 500)
+		spawn_cannon_ball(rotation, safe_bullets, 470)
 		state = STATES.AWAY
-
-
+		
 func _on_death() -> void:
 	if randf() < 0.2:
 		var new_cache := CACHE.instantiate()

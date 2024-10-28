@@ -14,6 +14,7 @@ autostart = true
 
 [node name="Boat" parent="." instance=ExtResource("1_62j11")]
 unique_name_in_owner = true
+spawn_dist = 1800
 
 [node name="Camera2D" type="Camera2D" parent="Boat"]
 
@@ -41,10 +42,6 @@ custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 show_percentage = false
-
-[node name="Label" type="Label" parent="UI/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Horn Parts Acquired: 0"
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
