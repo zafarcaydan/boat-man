@@ -106,10 +106,10 @@ func _on_world_update_timer_timeout() -> void:
 			var new_island := ISLAND.instantiate()
 			new_island.global_position = Vector2(cos(rotation + offset), sin(rotation + offset)) * spawn_dist + global_position 
 			spawn_feature(new_island)
-		if not compass.visible and int(time_passed) > %"World Update Timer".wait_time:
-			if int(time_passed) % 36 >= 0 and int(time_passed) % 36 < %"World Update Timer".wait_time:
-				for j in range(13 + int(fitness/2)): spawn_enemy(j, BASIC_ENEMY)
-				for j in range(int(fitness/2)): spawn_enemy(j, FAST_ENEMY)
+	if not compass.visible and int(time_passed) > %"World Update Timer".wait_time:
+		if int(time_passed) % 36 >= 0 and int(time_passed) % 36 < %"World Update Timer".wait_time:
+			for j in range(26 + int(fitness)): spawn_enemy(j, BASIC_ENEMY)
+			for j in range(int(fitness)): spawn_enemy(j, FAST_ENEMY)
 				
 func summon_super_island() -> void:
 	var new_super_island := SUPER_ISLAND.instantiate()
