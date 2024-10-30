@@ -81,31 +81,31 @@ func spawn_feature(new_feature: OceanFeature) -> void:
 		add_sibling.call_deferred(new_feature)
 		
 func spawn_enemy(iteration: int, type: Resource) ->void:
-	var new_enemy : Enemy = type.instantiate()
-	new_enemy.global_position = Vector2(cos(rotation + iteration/1.25), sin(rotation + iteration/1.25)) * spawn_dist
-	add_sibling.call_deferred(new_enemy)
+	pass
+	#var new_enemy : Enemy = type.instantiate()
+	#new_enemy.global_position = Vector2(cos(rotation + iteration/1.25), sin(rotation + iteration/1.25)) * spawn_dist
+	#add_sibling.call_deferred(new_enemy)
 
 func _on_world_update_timer_timeout() -> void:
 	var resource_amount : int= 0 
 	for i in resources: resource_amount += resources[i][0]
 	fitness =  (stats[&"cannon_ball_speed"] / 250.0 + health)/20.0 + resource_amount / 100 
 	
-	for i in range(2):
-		var spawn_choice : int = [1, 1, 1, 1, 2].pick_random()
-		var offset := i * PI
+	var spawn_choice : int = [1, 1, 1, 1, 2].pick_random()
+	var offset := atan2(velocity.y, velocity.x)
 	
-		if spawn_choice == 1:
-			offset += randf_range(-PI/2, PI/2)
-			var new_cache := CACHE.instantiate()
-			new_cache.global_position = Vector2(cos(rotation + offset), sin(rotation + offset)) * spawn_dist + global_position 
-			new_cache.item_type = GT.resource_types.Cannon_Balls
-			spawn_feature(new_cache)
+	if spawn_choice == 1:
+		offset += randf_range(-PI/2, PI/2)
+		var new_cache := CACHE.instantiate()
+		new_cache.global_position = Vector2(cos(rotation + offset), sin(rotation + offset)) * spawn_dist * 0.9 + global_position 
+		new_cache.item_type = GT.resource_types.Cannon_Balls
+		spawn_feature(new_cache)
 
-		elif spawn_choice == 2:
-			offset += randf_range(-PI/6, PI/6)
-			var new_island := ISLAND.instantiate()
-			new_island.global_position = Vector2(cos(rotation + offset), sin(rotation + offset)) * spawn_dist + global_position 
-			spawn_feature(new_island)
+	elif spawn_choice == 2:
+		offset += randf_range(-PI/6, PI/6)
+		var new_island := ISLAND.instantiate()
+		new_island.global_position = Vector2(cos(rotation + offset), sin(rotation + offset)) * spawn_dist * 0.9 + global_position 
+		spawn_feature(new_island)
 	if not compass.visible and int(time_passed) > %"World Update Timer".wait_time:
 		if int(time_passed) % 36 >= 0 and int(time_passed) % 36 < %"World Update Timer".wait_time:
 			for j in range(26 + int(fitness)): spawn_enemy(j, BASIC_ENEMY)

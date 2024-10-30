@@ -12,10 +12,9 @@ radius = 228.0
 
 [node name="Boat" type="CharacterBody2D" groups=["Boat_Node"]]
 z_index = 1
-collision_mask = 3
 script = ExtResource("1_wvsoj")
 spawn_dist = 1400
-move_speed = 375
+move_speed = 500
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(6, 6)
