@@ -63,6 +63,7 @@ type = -1
 comparison_dist = 1.08
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("CircleShape2D_neqdi")

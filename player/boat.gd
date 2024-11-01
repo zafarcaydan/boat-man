@@ -81,10 +81,9 @@ func spawn_feature(new_feature: OceanFeature) -> void:
 		add_sibling.call_deferred(new_feature)
 		
 func spawn_enemy(iteration: int, type: Resource) ->void:
-	pass
-	#var new_enemy : Enemy = type.instantiate()
-	#new_enemy.global_position = Vector2(cos(rotation + iteration/1.25), sin(rotation + iteration/1.25)) * spawn_dist
-	#add_sibling.call_deferred(new_enemy)
+	var new_enemy : Enemy = type.instantiate()
+	new_enemy.global_position = Vector2(cos(rotation + iteration/1.25), sin(rotation + iteration/1.25)) * spawn_dist
+	add_sibling.call_deferred(new_enemy)
 
 func _on_world_update_timer_timeout() -> void:
 	var resource_amount : int= 0 

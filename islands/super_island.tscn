@@ -31,6 +31,7 @@ comparison_dist = 6.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 scale = Vector2(0.5, 0.5)
+collision_layer = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("CircleShape2D_iglcc")

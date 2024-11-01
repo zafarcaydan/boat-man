@@ -7,7 +7,6 @@ var UI := GT.get_ui()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	ocean_feature_ready()
-	print()
 	if type == -1:
 		type = [GT.island_types.Stone, GT.island_types.Stone, GT.island_types.Wood, GT.island_types.Wood,  GT.island_types.Port].pick_random()
 	$StaticBody2D/AnimatedSprite2D.play(GT.island_types.find_key(type))

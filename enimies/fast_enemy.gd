@@ -11,14 +11,6 @@ func _ready() -> void:
 	enemy_ready(6)
 	
 
-func _physics_process(delta : float) -> void:
-	state_actions()
-	
-	
-	process(delta)
-		
-
-
 func state_actions() -> void:
 	match state:
 		STATES.TOWARD:

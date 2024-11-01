@@ -32,4 +32,11 @@ func upon_death() -> void:
 		new_cache.global_position = global_position
 		new_cache.item_type = GT.resource_types.Cannon_Balls
 		add_sibling.call_deferred(new_cache)
+		
+func _physics_process(delta:float) -> void:
+	state_actions()
+	process(delta)
+	
+func state_actions() -> void:
+	pass
 	

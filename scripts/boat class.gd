@@ -10,7 +10,7 @@ var force : Vector2
 signal death
 
 func boat_ready() -> void:
-	move_speed *= 2
+	pass
 
 func spawn_cannon_ball(direction : float, type : int, speed : int) -> void:
 	var new_cannon_ball := CANNON_BALL.instantiate()
@@ -28,14 +28,18 @@ func process(_delta:float) -> void:
 		else: death.emit()
 		queue_free()
 	
-	var velocity_power : float = (abs(velocity.x) + abs(velocity.y))
-	velocity += force * move_speed / (velocity_power/24 + 1)
-	if velocity_power > move_speed:
-		velocity = velocity.normalized()
-		var velocity_direction := atan2(velocity.y, velocity.x)
-		velocity = Vector2(cos(velocity_direction), sin(velocity_direction))
-	
+	var velocity_power : float = velocity_power_determination()
+
+
+	velocity += force * move_speed / (velocity_power/32 + 1)
 	velocity *= 0.936
-	
+
+
 	
 	move_and_slide()
+	
+func velocity_power_determination() -> float:
+
+	if abs(velocity.x) > 0: return (velocity.x / velocity.normalized().x)
+	elif abs(velocity.y) > 0: return (velocity.y / velocity.normalized().y)
+	return 0.0

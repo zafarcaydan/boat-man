@@ -8,18 +8,10 @@ func _ready() -> void:
 	enemy_ready(4)
 	
 
-func _physics_process(delta: float) -> void:
-	state_actions()
-	
-	if velocity != Vector2(0, 0): 
-		rotation = atan2(velocity.y, velocity.x)
-	
-	process(delta)
 
 
 func state_actions() -> void :
 	match state:
-		
 		STATES.TOWARD: 
 			force = Vector2(1,0).rotated(get_rotation_to_pos(player.global_position)) 
 			if get_dist_to_pos(player.global_position) < 6250: 
@@ -28,7 +20,7 @@ func state_actions() -> void :
 		
 		
 		STATES.ATTACK: 
-			force = Vector2(1,0).rotated(get_rotation_to_pos(player.future_pos)) / 4
+			force = Vector2(1,0).rotated(get_rotation_to_pos(player.future_pos)) / 3
 			if get_dist_to_pos(player.global_position) > 650: 
 				state = STATES.TOWARD
 			if get_dist_to_pos(player.global_position) < 275:
@@ -38,10 +30,13 @@ func state_actions() -> void :
 			force = Vector2(1,0).rotated(get_rotation_to_pos(player.global_position) + PI) 
 			if get_dist_to_pos(player.global_position) > 650: 
 				state = STATES.TOWARD
+				
+	if velocity != Vector2(0, 0): rotation = atan2(velocity.y, velocity.x)
 			
 
 
 func _on_timer_timeout() -> void:
+
 	if state == STATES.ATTACK:
 		spawn_cannon_ball(rotation, safe_bullets, 470)
 		state = STATES.AWAY
