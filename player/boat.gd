@@ -5,6 +5,7 @@ const ISLAND = preload("res://islands/island.tscn")
 const SUPER_ISLAND = preload("res://islands/super_island.tscn")
 const BASIC_ENEMY = preload("res://enimies/basic_enemy.tscn")
 const FAST_ENEMY = preload("res://enimies/fast_enemy.tscn")
+const SPECIAL_ENEMY = preload("res://enimies/special_enemy.tscn")
 const INVENTORY_SLOT = preload("res://scenes/inventory_slot.tscn")
 var parent : Node2D
 var time_passed := 0.0
@@ -37,6 +38,8 @@ func _ready() -> void:
 	%"Health Bar".max_value = health * 2
 	safe_bullets = 0
 	parent = get_parent()
+	EnemyStateBehaviors.player = self
+	
 	
 func _input(event: InputEvent) -> void:
 			
@@ -88,7 +91,7 @@ func spawn_enemy(iteration: int, type: Resource) ->void:
 func _on_world_update_timer_timeout() -> void:
 	var resource_amount : int= 0 
 	for i in resources: resource_amount += resources[i][0]
-	fitness =  (stats[&"cannon_ball_speed"] / 250.0 + health)/20.0 + resource_amount / 100 
+	fitness =  (stats[&"cannon_ball_speed"] / 250.0 + health)/20.0 + resource_amount / 100.0
 	
 	var spawn_choice : int = [1, 1, 1, 1, 2].pick_random()
 	var offset := atan2(velocity.y, velocity.x)
@@ -108,7 +111,7 @@ func _on_world_update_timer_timeout() -> void:
 	if not compass.visible and int(time_passed) > %"World Update Timer".wait_time:
 		if int(time_passed) % 36 >= 0 and int(time_passed) % 36 < %"World Update Timer".wait_time:
 			for j in range(26 + int(fitness)): spawn_enemy(j, BASIC_ENEMY)
-			for j in range(int(fitness)): spawn_enemy(j, FAST_ENEMY)
+			for j in range(int(fitness)): spawn_enemy(j, SPECIAL_ENEMY)
 				
 func summon_super_island() -> void:
 	var new_super_island := SUPER_ISLAND.instantiate()
@@ -118,9 +121,10 @@ func summon_super_island() -> void:
 	add_sibling.call_deferred(new_super_island)
 	
 #upgrade & inventory handling
-func enemy_spawn_button(basic: int, fast: int) -> void:
+func enemy_spawn_button(basic: int = 0, fast: int = 0, special: int = 0) -> void:
 	for i in range(basic): spawn_enemy(i, FAST_ENEMY)
 	for i in range(fast): spawn_enemy(i, BASIC_ENEMY)
+	for i in range(special): spawn_enemy(i, SPECIAL_ENEMY)
 	get_tree().get_first_node_in_group("Super Island").resources_untaken =  true
 	GT.increase_super_island_stage()
 
@@ -145,8 +149,9 @@ func upgrade_button_pressed(button: UpgradeMenuButton) -> void:
 	if cost_evaluation_and_action(button):
 		match button.button_id:
 			&"cannon_ball_speed": stats[&"cannon_ball_speed"] += 22
-			&"repair": health += 1
+			&"repair": health += 2
 			&"speed": 
+				@warning_ignore("narrowing_conversion")
 				move_speed *= 1.1
 				stats[&"speed"] *= 1.1
 			&"craft_horn": 
@@ -168,11 +173,12 @@ func connect_upgrade_button_signal(button : UpgradeMenuButton) -> void:
 	button.upgrade_button_pressed.connect(upgrade_button_pressed)
 	
 func super_island_button_ids(id: StringName) -> void:
+	
 	match id:
 		&"_summon_enemies_round_1": enemy_spawn_button(8,0)
 		&"_summon_enemies_round_2": enemy_spawn_button(3,8)
-		&"__summon_enemies_round_1": enemy_spawn_button(12,18)
-		&"__summon_enemies_round_2": enemy_spawn_button(4,24)
+		&"__summon_enemies_round_1": enemy_spawn_button(8,12,4)
+		&"__summon_enemies_round_2": enemy_spawn_button(2,18,6)
 		&"_collect_horn_piece":
 			GT.increase_super_island_stage()
 			for i in get_tree().get_first_node_in_group("Super Island").get_child(1).get_children(): i.remove_from_group("Super Island")

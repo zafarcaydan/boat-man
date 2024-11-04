@@ -38,40 +38,40 @@ func interact() -> void:
 			GT.super_island_types.First:
 				match stage:
 					0:
-						if resources_untaken: post_button([[0, 40]], &"cannon_ballls", 2, false)
-						post_button([], &"_summon_enemies_round_1", 2, false)
+						if resources_untaken: post_button([[0, 40]], &"cannon_ballls", 2)
+						post_button([], &"_summon_enemies_round_1", 2)
 					1:  post_button([[GT.resource_types.Wood, -2], [GT.resource_types.Stone, -2]], &"repair", 1, true)
 					2:  
-						if resources_untaken: post_button([[0, 40]], &"cannon_ballls", 2, false)
-						post_button([], &"_summon_enemies_round_2", 2, false)
+						if resources_untaken: post_button([[0, 40]], &"cannon_ballls", 2)
+						post_button([], &"_summon_enemies_round_2", 2)
 					3:  post_button([[GT.resource_types.Wood, -4], [GT.resource_types.Stone, -1]], &"repair", 1, true)
 					4:  
-						post_button([], &"_collect_horn_piece", 2, false)
+						post_button([], &"_collect_horn_piece", 2)
 						if resources_untaken:
-							post_button([[2, 20]], &"stone", 2, false)
-							post_button([[0, 40]], &"cannon_balls", 2, false)
-							post_button([[1, 20]], &"wood", 2, false)
+							post_button([[2, 20]], &"stone", 2)
+							post_button([[0, 40]], &"cannon_balls", 2)
+							post_button([[1, 20]], &"wood", 2)
 							
 					
 			GT.super_island_types.Second:
 				match stage:
 					0:
-						if resources_untaken: post_button([[0, 40]], &"cannon_ballls", 2, false)
-						post_button([], &"__summon_enemies_round_1", 2, false)
+						if resources_untaken: post_button([[0, 40]], &"cannon_ballls", 2)
+						post_button([], &"__summon_enemies_round_1", 2)
 					1: post_button([[GT.resource_types.Wood, -3], [GT.resource_types.Stone, -3]], &"repair", 1, true)
 					2: 
-						if resources_untaken: post_button([[0, 40]], &"cannon_ballls", 2, false)
-						post_button([], &"__summon_enemies_round_2", 2, false)
+						if resources_untaken: post_button([[0, 40]], &"cannon_ballls", 2)
+						post_button([], &"__summon_enemies_round_2", 2)
 					3: post_button([[GT.resource_types.Wood, -4], [GT.resource_types.Stone, -2]], &"repair", 1, true)
 					4: 
-						post_button([], &"_collect_horn_piece", 2, false)
+						post_button([], &"_collect_horn_piece", 2)
 						if resources_untaken:
-							post_button([[2, 20]], &"stone", 2, false)
-							post_button([[0, 40]], &"cannon_balls", 2, false)
-							post_button([[1, 20]], &"wood", 2, false)
+							post_button([[2, 20]], &"stone", 2)
+							post_button([[0, 40]], &"cannon_balls", 2)
+							post_button([[1, 20]], &"wood", 2)
 							
 			GT.super_island_types.Third:
-				post_button([], &"craft_horn", 2, false)
+				post_button([], &"craft_horn", 2)
 				var new_lable := preload("res://scenes/inventory_slot.tscn").instantiate()
 				new_lable.get_child(0).text = "Blow the horn. \n Find the pirate with the compass to home. \n Go home."
 				GT.get_ui()[1].get_parent().add_child(new_lable)

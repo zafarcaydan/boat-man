@@ -4,34 +4,32 @@ extends Enemy
 
 
 func _ready() -> void:
-	enemy_ready(4)
+	enemy_ready(6)
 	external_nodes = [$Timer]
 	
-
-
 
 func state_actions() -> void :
 	match state:
 		STATES.TOWARD: 
 			EnemyStateBehaviors.BS_Toward(self)
-
 		
 		
-		STATES.ATTACK: 
-			EnemyStateBehaviors.B_Attack(self)
-		
-		STATES.AWAY: 
-			EnemyStateBehaviors.B_Away(self)
+		STATES.ATTACK: away_behaviors(1150)
 				
-	
+
 			
 
 
 func _on_timer_timeout() -> void:
-
 	if state == STATES.ATTACK:
-		spawn_cannon_ball(rotation, safe_bullets, 470)
-		state = STATES.AWAY
+		spawn_cannon_ball(rotation, safe_bullets, 533)
+		
+func away_behaviors(reset: int) -> void:
+	rotation = get_rotation_to_pos(player.future_pos) 
+	force = Vector2(1,0).rotated(rotation + PI) 
+	if get_dist_to_pos(player.global_position) > reset: 
+		state = STATES.TOWARD
+
 		
 func _on_death() -> void:
 	if randf() < 0.2:

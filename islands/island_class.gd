@@ -2,7 +2,7 @@ class_name Islands
 extends OceanFeature
 
 
-func post_button(costs: Array[Array], purpose: StringName, index: int, dynamic: bool) -> void:
+func post_button(costs: Array[Array], purpose: StringName, index: int, dynamic: bool = false) -> void:
 	var button := UpgradeMenuButton.new()
 	button.button_id = purpose
 	if dynamic:

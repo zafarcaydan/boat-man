@@ -19,6 +19,7 @@ move_speed = 600
 shape = SubResource("RectangleShape2D_2e87y")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(1, 0.196078, 0.0627451, 1)
 scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_61dfq")
 

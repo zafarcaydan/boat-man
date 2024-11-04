@@ -3,6 +3,9 @@ class_name Enemy
 extends Boat
 
 var player : Player
+enum STATES {TOWARD, ATTACK, AWAY}
+var state : STATES = STATES.TOWARD
+var external_nodes : Array[Node] 
 
 func enemy_ready(health_value : int) -> void:
 	
