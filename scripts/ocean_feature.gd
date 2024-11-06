@@ -4,7 +4,7 @@ extends Node2D
 @export var comparison_dist : float
 var player: Player
 
-func ocean_feature_ready() -> void:
+func _ready() -> void:
 	player = GT.get_player()
 
 

@@ -4,36 +4,25 @@ extends Enemy
 
 
 func _ready() -> void:
-	enemy_ready(6)
+	super()
 	external_nodes = [$Timer]
+	behaviors = [EnemyStateBehaviors.BS_Toward, EnemyStateBehaviors.FS_Away, EnemyStateBehaviors.FS_Away]
 	
 
-func state_actions() -> void :
-	match state:
-		STATES.TOWARD: 
-			EnemyStateBehaviors.BS_Toward(self)
-		
-		
-		STATES.ATTACK: away_behaviors(1150)
-				
 
 			
 
 
 func _on_timer_timeout() -> void:
-	if state == STATES.ATTACK:
+	if state == EnemyStateBehaviors.STATES.ATTACK:
 		spawn_cannon_ball(rotation, safe_bullets, 533)
 		
-func away_behaviors(reset: int) -> void:
-	rotation = get_rotation_to_pos(player.future_pos) 
-	force = Vector2(1,0).rotated(rotation + PI) 
-	if get_dist_to_pos(player.global_position) > reset: 
-		state = STATES.TOWARD
+		
+func away_conditions_met() -> void:
+	state = EnemyStateBehaviors.STATES.TOWARD
 
 		
-func _on_death() -> void:
-	if randf() < 0.2:
-		var new_cache := CACHE.instantiate()
-		new_cache.global_position = global_position
-		new_cache.item_type = GT.resource_types.Wood
-		add_sibling.call_deferred(new_cache)
+
+
+func _on_death():
+	if randf() < 0.3: spawn_cache(GT.resource_types.Stone)

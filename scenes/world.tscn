@@ -1,20 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://dr0ve8yekc04f"]
+[gd_scene load_steps=5 format=3 uid="uid://dr0ve8yekc04f"]
 
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_1m37y"]
 [ext_resource type="PackedScene" uid="uid://d0hexefo5iwft" path="res://player/boat.tscn" id="1_62j11"]
 [ext_resource type="Texture2D" uid="uid://dg8gs8mipgbta" path="res://ocean.png" id="4_4pma3"]
+[ext_resource type="PackedScene" uid="uid://cfngicf5yer18" path="res://islands/island.tscn" id="4_884gj"]
 
 [node name="world" type="Node2D"]
 script = ExtResource("1_1m37y")
 
 [node name="World Update Timer" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 3.0
+wait_time = 4.0
 autostart = true
 
 [node name="Boat" parent="." instance=ExtResource("1_62j11")]
 unique_name_in_owner = true
-spawn_dist = 1800
+render_dist = null
 
 [node name="Camera2D" type="Camera2D" parent="Boat"]
 
@@ -59,6 +60,10 @@ motion_mirroring = Vector2(3600, 3600)
 position = Vector2(3600, 0)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("4_4pma3")
+
+[node name="Island" parent="." instance=ExtResource("4_884gj")]
+position = Vector2(7, 266)
+type = 2
 
 [connection signal="timeout" from="World Update Timer" to="." method="_on_world_update_timer_timeout"]
 [connection signal="timeout" from="World Update Timer" to="Boat" method="_on_world_update_timer_timeout"]

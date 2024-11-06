@@ -6,10 +6,10 @@ var UI := GT.get_ui()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	ocean_feature_ready()
+	super()
 	if type == -1:
 		type = [GT.island_types.Stone, GT.island_types.Stone, GT.island_types.Wood, GT.island_types.Wood,  GT.island_types.Port].pick_random()
-	$StaticBody2D/AnimatedSprite2D.play(GT.island_types.find_key(type))
+	set_used_display()
 	
 	
 	
@@ -30,12 +30,12 @@ func interact() -> void:
 				post_button([[1,-4], [2, -1]], &"repair", 1, true)
 				post_button([[GT.resource_types.Stone, -10], [GT.resource_types.Wood, -20]], &"speed", 1, true)
 				post_button([[GT.resource_types.Cannon_Balls, 5], [GT.resource_types.Wood, -2]], &"cannon_balls", 2, true)
-				post_button([[GT.resource_types.Stone, 2], [GT.resource_types.Wood, -2]], &"stone", 1)
-				post_button([[GT.resource_types.Wood, 16], [GT.resource_types.Stone, -1]], &"wood", 2, true)
+				post_button([[GT.resource_types.Stone, 2], [GT.resource_types.Wood, -3]], &"stone", 1)
+				post_button([[GT.resource_types.Wood, 24], [GT.resource_types.Stone, -1]], &"wood", 2, true)
 
 				if not player.compass.visible: 
 					var modifyer : int = player.stats[&"horn_parts"]+1
-					post_button([[0, -12],[1, -21 - modifyer * 6], [2, -10 - modifyer * 9]], &"_" + GT.super_island_types.find_key(modifyer) + &"_compass_", 2, false)
+					post_button([[0, -12],[1, -21 - modifyer * 6], [2, -10 - modifyer * 9]], &"_" + GT.super_island_types.find_key(modifyer) + &"_compass_", 2)
 			
 			GT.island_types.NULL:
 				post_button([], &"null", 1)
@@ -48,5 +48,9 @@ func interact() -> void:
 		set_used_display()
 		
 func set_used_display() -> void:
-	if not unused: $StaticBody2D/AnimatedSprite2D.play("used")
-	else: $StaticBody2D/AnimatedSprite2D.play(GT.island_types.find_key(type))
+	if not unused: 
+		$StaticBody2D/AnimatedSprite2D.play("used")
+		comparison_dist = 0.9
+	else: 
+		$StaticBody2D/AnimatedSprite2D.play(GT.island_types.find_key(type))
+		comparison_dist = 1.1

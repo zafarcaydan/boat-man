@@ -7,7 +7,7 @@ var resources_untaken := true
 const ISLAND := preload("res://islands/island.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	ocean_feature_ready()
+	super()
 	for i in range(6):
 		var new_island1 := ISLAND.instantiate()
 		new_island1.position = Vector2.RIGHT.rotated(PI/3 * i)*1600
@@ -18,6 +18,8 @@ func _ready() -> void:
 		new_island2.position = Vector2.RIGHT.rotated(PI/3 * i + PI/6)*2400
 		new_island2.add_to_group("Super Island")
 		$islands.add_child.call_deferred(new_island2)
+		
+	if type == GT.super_island_types.Third: add_to_group("Third_Super_Island")
 		
 
 
@@ -38,11 +40,11 @@ func interact() -> void:
 			GT.super_island_types.First:
 				match stage:
 					0:
-						if resources_untaken: post_button([[0, 40]], &"cannon_ballls", 2)
+						if resources_untaken: post_button([[0, 40]], &"cannon_balls", 2)
 						post_button([], &"_summon_enemies_round_1", 2)
 					1:  post_button([[GT.resource_types.Wood, -2], [GT.resource_types.Stone, -2]], &"repair", 1, true)
 					2:  
-						if resources_untaken: post_button([[0, 40]], &"cannon_ballls", 2)
+						if resources_untaken: post_button([[0, 40]], &"cannon_balls", 2)
 						post_button([], &"_summon_enemies_round_2", 2)
 					3:  post_button([[GT.resource_types.Wood, -4], [GT.resource_types.Stone, -1]], &"repair", 1, true)
 					4:  
@@ -71,16 +73,21 @@ func interact() -> void:
 							post_button([[1, 20]], &"wood", 2)
 							
 			GT.super_island_types.Third:
-				post_button([], &"craft_horn", 2)
+				if player.stats[&"horn_parts"] == 2 :post_button([], &"craft_horn", 2)
+				post_button([], &"_replenish_islands", 2)
 				var new_lable := preload("res://scenes/inventory_slot.tscn").instantiate()
 				new_lable.get_child(0).text = "Blow the horn. \n Find the pirate with the compass to home. \n Go home."
 				GT.get_ui()[1].get_parent().add_child(new_lable)
 				
+		if resources_untaken: replenish_islands()
 		resources_untaken = false
-		for i in $islands.get_children(): 
-				i.unused = true
-				i.set_used_display()
 		unused = false
 		$Timer.start()
 		
 func _on_timer_timeout() -> void: unused = true
+
+func replenish_islands() -> void:
+	for i in $islands.get_children(): 
+		i.unused = true
+		i.set_used_display()
+	

@@ -1,9 +1,8 @@
 extends Node2D
 @onready var player := $Boat
 
-#class Items:
-#	var id : String
-#	var icon : Texture2D
+func _ready() -> void: 
+	EnemyStateBehaviors.player = GT.get_player()
 
 func _on_world_update_timer_timeout() -> void:
 	for object in get_tree().get_nodes_in_group("Rendered Object"):

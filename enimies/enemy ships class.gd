@@ -3,43 +3,38 @@ class_name Enemy
 extends Boat
 
 var player : Player
-enum STATES {TOWARD, ATTACK, AWAY}
-var state : STATES = STATES.TOWARD
+var state : EnemyStateBehaviors.STATES = EnemyStateBehaviors.STATES.TOWARD
 var external_nodes : Array[Node] 
+var behaviors : Array[Callable]
 
-func enemy_ready(health_value : int) -> void:
+func _ready() -> void:
 	
-	boat_ready()
+	super()
 	safe_bullets = 1
 	player = GT.get_player()
 	global_position += player.global_position
 	move_speed += randi_range(-20, 20)
-	health = health_value
 	death.connect(upon_death)
 
-func get_dist_to_pos(pos: Vector2) -> float:
-		return abs(sqrt((global_position.y - pos.y) ** 2 + (global_position.x - pos.x) ** 2))
-		
-func get_rotation_to_pos(pos: Vector2) -> float:
-		return atan2(pos.y - global_position.y, pos.x - global_position.x)
+func spawn_cache(type: GT.resource_types) -> void:
+	var new_cache := CACHE.instantiate()
+	new_cache.global_position = global_position
+	new_cache.item_type = type
+	add_sibling.call_deferred(new_cache)
+	
 
 func upon_death() -> void:
 	if randf() < 0.29:
-		var new_cache := CACHE.instantiate()
-		new_cache.global_position = global_position
-		new_cache.item_type = GT.resource_types.Wood
-		add_sibling.call_deferred(new_cache)
+		spawn_cache(GT.resource_types.Wood)
 	
 	if randf() < 0.08:
-		var new_cache := CACHE.instantiate()
-		new_cache.global_position = global_position
-		new_cache.item_type = GT.resource_types.Cannon_Balls
-		add_sibling.call_deferred(new_cache)
+		spawn_cache(GT.resource_types.Cannon_Balls)
 		
 func _physics_process(delta:float) -> void:
-	state_actions()
-	process(delta)
+	behaviors[state].call(self)
+	process()
 	
-func state_actions() -> void:
+
+	
+func away_conditions_met() -> void:
 	pass
-	
