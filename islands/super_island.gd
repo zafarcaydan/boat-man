@@ -75,6 +75,8 @@ func interact() -> void:
 			GT.super_island_types.Third:
 				if player.stats[&"horn_parts"] == 2 :post_button([], &"craft_horn", 2)
 				post_button([], &"_replenish_islands", 2)
+				post_button([[0, 10]], &"cannon_balls", 2)
+				post_button([[GT.resource_types.Wood, -1], [GT.resource_types.Stone, 0]], &"repair", 1, true)
 				var new_lable := preload("res://scenes/inventory_slot.tscn").instantiate()
 				new_lable.get_child(0).text = "Blow the horn. \n Find the pirate with the compass to home. \n Go home."
 				GT.get_ui()[1].get_parent().add_child(new_lable)

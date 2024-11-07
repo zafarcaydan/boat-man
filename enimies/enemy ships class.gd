@@ -31,10 +31,12 @@ func upon_death() -> void:
 		spawn_cache(GT.resource_types.Cannon_Balls)
 		
 func _physics_process(delta:float) -> void:
+	additional_process(delta)
 	behaviors[state].call(self)
 	process()
 	
-
+func additional_process(delta:float) -> void:
+	pass
 	
 func away_conditions_met() -> void:
 	pass

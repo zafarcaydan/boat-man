@@ -15,7 +15,11 @@ autostart = true
 
 [node name="Boat" parent="." instance=ExtResource("1_62j11")]
 unique_name_in_owner = true
-render_dist = null
+stats = {
+"cannon_ball_speed": 500,
+"horn_parts": 2,
+"speed": 1
+}
 
 [node name="Camera2D" type="Camera2D" parent="Boat"]
 
@@ -62,7 +66,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("4_4pma3")
 
 [node name="Island" parent="." instance=ExtResource("4_884gj")]
-position = Vector2(7, 266)
+position = Vector2(77, 426)
 type = 2
 
 [connection signal="timeout" from="World Update Timer" to="." method="_on_world_update_timer_timeout"]

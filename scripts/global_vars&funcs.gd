@@ -7,7 +7,7 @@ enum super_island_types {First = 1, Second = 2, Third = 3}
 func _ready() -> void:
 	pass
 
-func get_player() -> Player : 
+func get_player() -> Player: 
 	return get_tree().get_first_node_in_group("Boat_Node")
 
 func get_ui() -> Array[Node]:
@@ -17,7 +17,10 @@ func increase_super_island_stage() -> void:
 	get_tree().get_first_node_in_group("Super Island").stage += 1
 	get_tree().get_first_node_in_group("Super Island").resources_untaken = true
 	
-func play_audio(sounds : Node) -> int:
+func play_random_audio(sounds : Node) -> void:
 	sounds.get_children().pick_random().play()
-	return 5
+	
+func erase_super_island_status() -> void:
+	for i in get_tree().get_first_node_in_group("Super Island").get_child(1).get_children(): i.remove_from_group("Super Island")
+	get_tree().get_first_node_in_group("Super Island").remove_from_group("Super Island")
 	

@@ -19,9 +19,9 @@ var resources := {}
 @onready var compass := $Compas
 
 var closest_enemy : Enemy 
-var stats := {
+@export var stats := {
 	&"cannon_ball_speed": 500, 
-	&"horn_parts": 2,
+	&"horn_parts": 3,
 	&"speed": 1}
 
 
@@ -30,14 +30,13 @@ func _ready() -> void:
 	var rescource_names := []
 	for i in GT.resource_types: rescource_names.append(i.replace("_", " ") + ": ")
 	for i in GT.resource_types.values():
-		resources[i] = [50, GT.resource_types.find_key(i).replace("_", " ") + ": "] # 20
+		resources[i] = [100, GT.resource_types.find_key(i).replace("_", " ") + ": "] # 20
 		%"Inventory Bar".add_child(INVENTORY_SLOT.instantiate())
 	update_inventory_display()
 	
 	%"Health Bar".max_value = health * 2
 	safe_bullets = 0
 	parent = get_parent()
-	GT.play_audio($"Horn sounds")
 	
 	
 	
@@ -75,10 +74,9 @@ func _physics_process(delta: float) -> void:
 	future_pos = global_position + velocity * 0.58
 	
 func horn_blown() -> void:
-	print(3)
 	stats[&"horn_parts"] = 4
-	print(stats[&"horn_parts"])
-	GT.play_audio($"Horn sounds")
+	GT.play_random_audio($"Horn sounds")
+	spawn_enemy(0, preload("res://enimies/final_enemy.tscn"))
 	
 
 #spawning things on the ocean
@@ -129,7 +127,7 @@ func _on_world_update_timer_timeout() -> void:
 				spawn_feature(new_additional_island, offset, 1.92)
 func summon_super_island() -> void:
 	var new_super_island := SUPER_ISLAND.instantiate()
-	new_super_island.global_position =  global_position + Vector2.RIGHT.rotated(randf_range(-PI, PI)) * spawn_dist *  2#7
+	new_super_island.global_position =  global_position + Vector2.RIGHT.rotated(randf_range(-PI, PI)) * spawn_dist *  1#7
 	new_super_island.type = stats[&"horn_parts"] + 1
 	compass.visible = true
 	add_sibling.call_deferred(new_super_island)
@@ -171,7 +169,7 @@ func upgrade_button_pressed(button: UpgradeMenuButton) -> void:
 				move_speed *= 1.1
 				stats[&"speed"] *= 1.1
 			&"craft_horn": 
-				super_island_button_ids(&"_collect_horn_piece")
+				stats[&"horn_parts"] += 1
 			
 			
 
@@ -194,9 +192,8 @@ func super_island_button_ids(id: StringName) -> void:
 		&"_summon_enemies_round_2": enemy_spawn_button(3,8)
 		&"__summon_enemies_round_1": enemy_spawn_button(8,12,4)
 		&"__summon_enemies_round_2": enemy_spawn_button(2,18,6)
-		&"_collect_horn_piece":
-			for i in get_tree().get_first_node_in_group("Super Island").get_child(1).get_children(): i.remove_from_group("Super Island")
-			get_tree().get_first_node_in_group("Super Island").remove_from_group("Super Island")
+		&"_collect_horn_piece": 
+			GT.erase_super_island_status()
 			compass.visible = false
 			stats[&"horn_parts"] += 1
 		&"_replenish_islands" : get_tree().get_first_node_in_group("Third_Super_Island").replenish_islands()
