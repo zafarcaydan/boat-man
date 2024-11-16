@@ -1,14 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://d0hexefo5iwft"]
+[gd_scene load_steps=10 format=3 uid="uid://d0hexefo5iwft"]
 
 [ext_resource type="Script" path="res://player/boat.gd" id="1_wvsoj"]
 [ext_resource type="Texture2D" uid="uid://cyib1cau76t3c" path="res://player/boat.png" id="2_degx4"]
 [ext_resource type="Texture2D" uid="uid://dx16mwbs2renh" path="res://compass_arrow.png" id="3_s4tct"]
-[ext_resource type="AudioStream" uid="uid://7jr6otwp3g61" path="res://trombone 3.wav" id="4_h6obo"]
-[ext_resource type="AudioStream" uid="uid://boy6yre6561k4" path="res://trombone 2.wav" id="4_ifsxx"]
-[ext_resource type="AudioStream" uid="uid://bocjgxopjdcd3" path="res://trombone 1.wav" id="4_luba0"]
+[ext_resource type="AudioStream" uid="uid://7jr6otwp3g61" path="res://sounds/trombone 3.wav" id="4_h6obo"]
+[ext_resource type="AudioStream" uid="uid://boy6yre6561k4" path="res://sounds/trombone 2.wav" id="4_ifsxx"]
+[ext_resource type="AudioStream" uid="uid://bocjgxopjdcd3" path="res://sounds/trombone 1.wav" id="4_luba0"]
+[ext_resource type="AudioStream" uid="uid://pls41nfao04v" path="res://sounds/trombone 7.wav" id="7_6ltwp"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_maeq3"]
-size = Vector2(97, 56)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5o3qb"]
+radius = 30.0
+height = 111.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6jjwt"]
 radius = 228.0
@@ -17,17 +19,18 @@ radius = 228.0
 z_index = 1
 script = ExtResource("1_wvsoj")
 spawn_dist = 1700
+render_dist = 4000
 move_speed = 500
-health = 40
+health = 50
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(6, 6)
 texture = ExtResource("2_degx4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(-22.5, 0)
-shape = SubResource("RectangleShape2D_maeq3")
+position = Vector2(-15, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_5o3qb")
 
 [node name="Area2D" type="Area2D" parent="."]
 visible = false
@@ -54,3 +57,8 @@ stream = ExtResource("4_ifsxx")
 
 [node name="Trombone3" type="AudioStreamPlayer" parent="Horn sounds"]
 stream = ExtResource("4_h6obo")
+
+[node name="Trombone7" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_6ltwp")
+
+[connection signal="death" from="." to="." method="_on_death"]

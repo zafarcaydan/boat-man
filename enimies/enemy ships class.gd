@@ -16,7 +16,7 @@ func _ready() -> void:
 	move_speed += randi_range(-20, 20)
 	death.connect(upon_death)
 
-func spawn_cache(type: GT.resource_types) -> void:
+func spawn_cache(type: int) -> void:
 	var new_cache := CACHE.instantiate()
 	new_cache.global_position = global_position
 	new_cache.item_type = type
@@ -32,7 +32,7 @@ func upon_death() -> void:
 		
 func _physics_process(delta:float) -> void:
 	additional_process(delta)
-	behaviors[state].call(self)
+	behaviors[state].call(self) 
 	process()
 	
 func additional_process(delta:float) -> void:

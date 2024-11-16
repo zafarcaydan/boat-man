@@ -1,10 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://d01fyx8f1oqju"]
 
 [ext_resource type="Script" path="res://enimies/fast_enemy.gd" id="1_kn04t"]
-[ext_resource type="Texture2D" uid="uid://byn0sdcxewlci" path="res://icon.svg" id="2_61dfq"]
+[ext_resource type="Texture2D" uid="uid://cdnam1g0h0kw0" path="res://enimies/fast enemy.png" id="2_s47wk"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2e87y"]
-size = Vector2(96, 100)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_21k6w"]
+radius = 29.0
+height = 148.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eir2j"]
 size = Vector2(1000, 193.333)
@@ -16,13 +17,12 @@ script = ExtResource("1_kn04t")
 move_speed = 600
 health = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_2e87y")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 0.196078, 0.0627451, 1)
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("2_61dfq")
+texture = ExtResource("2_s47wk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_21k6w")
 
 [node name="Timer" type="Timer" parent="."]
 
@@ -39,4 +39,5 @@ position = Vector2(766, 0)
 scale = Vector2(0.2, 0.6)
 shape = SubResource("RectangleShape2D_eir2j")
 
+[connection signal="death" from="." to="." method="_on_death"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

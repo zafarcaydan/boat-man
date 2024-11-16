@@ -21,3 +21,7 @@ func away_conditions_met() -> void:
 	state = EnemyStateBehaviors.STATES.TOWARD
 	direction_modifyer = [PI/-3, PI / 3].pick_random()
 	
+
+
+func _on_death():
+	pass # Replace with function body.

@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://bocjgxopjdcd3"
-path="res://.godot/imported/trombone 1.wav-e06fbec887382ae32fecd9763d77fc23.sample"
+uid="uid://iq1gtlepuhkf"
+path="res://.godot/imported/trombone 5.wav-122a62b3a97b8a6ecd630220d1d14ad0.sample"
 
 [deps]
 
-source_file="res://trombone 1.wav"
-dest_files=["res://.godot/imported/trombone 1.wav-e06fbec887382ae32fecd9763d77fc23.sample"]
+source_file="res://sounds/trombone 5.wav"
+dest_files=["res://.godot/imported/trombone 5.wav-122a62b3a97b8a6ecd630220d1d14ad0.sample"]
 
 [params]
 

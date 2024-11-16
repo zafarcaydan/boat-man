@@ -9,10 +9,10 @@ func get_dist_to_pos(pos: Vector2, caller) -> float:
 		return sqrt((caller.global_position.y - pos.y) ** 2 + (caller.global_position.x - pos.x) ** 2)
 
 
-func BS_Toward(caller: Enemy) -> void:
+func BS_Toward(caller: Enemy, transition_dist : int = 590) -> void:
 	caller.rotation = atan2(caller.velocity.y, caller.velocity.x)
 	caller.force = Vector2(1,0).rotated(get_rotation_to_pos(player.global_position, caller)) 
-	if get_dist_to_pos(player.global_position, caller) < 590: 
+	if get_dist_to_pos(player.global_position, caller) < transition_dist: 
 		caller.external_nodes[0].start(0.8)
 		caller.state = STATES.ATTACK
 
@@ -30,10 +30,10 @@ func B_Away(caller: Enemy) -> void:
 	if get_dist_to_pos(player.global_position, caller) > 650: 
 		caller.state = STATES.TOWARD
 		
-func FS_Away(caller: Enemy) -> void :
-	caller.rotation = get_rotation_to_pos(player.future_pos, caller) 
+func FS_Away(caller: Enemy, transition_dist: int = 1200, future: float = 0.58) -> void :
+	caller.rotation = get_rotation_to_pos(player.global_position + player.velocity * future, caller) 
 	caller.force = Vector2(1,0).rotated(caller.rotation + PI) 
-	if get_dist_to_pos(player.global_position, caller) > (-caller.state + 3) * 650 :
+	if get_dist_to_pos(player.global_position, caller) > transition_dist:#(-caller.state + 3) * 650 :
 		caller.away_conditions_met()
 	
 func F_Toward(caller: Enemy) -> void:

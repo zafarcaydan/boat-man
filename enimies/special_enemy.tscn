@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://enimies/special_enemy.gd" id="1_k3fh4"]
 [ext_resource type="Texture2D" uid="uid://osvbdwmajtal" path="res://enimies/basic_enemy.png" id="2_rihy8"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2e87y"]
-size = Vector2(130, 76)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yn11h"]
+radius = 48.0
+height = 178.0
 
 [node name="Special Enemy" type="CharacterBody2D" groups=["Enemies"]]
 collision_layer = 2
@@ -13,15 +14,15 @@ script = ExtResource("1_k3fh4")
 move_speed = 525
 health = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-19, 0)
-shape = SubResource("RectangleShape2D_2e87y")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(1.5, 1.5)
 texture = ExtResource("2_rihy8")
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_yn11h")
 
 [connection signal="death" from="." to="." method="_on_death"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

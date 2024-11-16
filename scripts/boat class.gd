@@ -4,9 +4,11 @@ extends CharacterBody2D
 var safe_bullets : int
 @export var move_speed : int
 @export var health : int = 4
+@export var external_dampener : float = 1.0
 const CANNON_BALL = preload("res://scenes/cannon_ball.tscn")
 const CACHE = preload("res://scenes/cache.tscn")
 var force : Vector2
+var external_force : Vector2
 signal death
 
 func _ready() -> void:
@@ -22,20 +24,18 @@ func spawn_cannon_ball(direction : float, type : int, speed : int, dist_from_sel
 	add_child(new_cannon_ball)
 	
 func process() -> void:
-	if health <= 0:
-		if self is Player: get_tree().change_scene_to_packed(load("res://scenes/start_menu.tscn"))
-		else: death.emit()
+	if health <= 0: 
+		death.emit()
 		queue_free()
-	
-	var velocity_power : float = velocity_power_determination()
+	var velocity_power : float = vector_power_determination()
 
 
-	velocity += force * move_speed / (velocity_power/32 + 1)
-	velocity *= 0.936
+	velocity += force * move_speed / (velocity_power/32 + 1) + external_force / external_dampener
+	velocity *= 0.936 
 	move_and_slide()
+	external_force *= 0.5
 	
-func velocity_power_determination() -> float:
-
-	if abs(velocity.x) > 0: return (velocity.x / velocity.normalized().x)
-	elif abs(velocity.y) > 0: return (velocity.y / velocity.normalized().y)
+func vector_power_determination(vector: Vector2 = velocity) -> float:
+	if abs(vector.x) > 0: return (vector.x / vector.normalized().x)
+	elif abs(vector.y) > 0: return (vector.y / vector.normalized().y)
 	return 0.0

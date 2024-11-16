@@ -1,11 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3vvvj4n33pf1"]
+[gd_scene load_steps=7 format=3 uid="uid://d3vvvj4n33pf1"]
 
 [ext_resource type="Script" path="res://enimies/final_enemy.gd" id="1_3joak"]
 [ext_resource type="Texture2D" uid="uid://byn0sdcxewlci" path="res://icon.svg" id="1_l8wbo"]
-[ext_resource type="AudioStream" uid="uid://bocjgxopjdcd3" path="res://trombone 1.wav" id="3_rpvuj"]
+[ext_resource type="AudioStream" uid="uid://dc6u1p0it57bs" path="res://sounds/trombone 4.wav" id="4_d0uwd"]
+[ext_resource type="AudioStream" uid="uid://iq1gtlepuhkf" path="res://sounds/trombone 5.wav" id="5_l8itx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pnwpc"]
 size = Vector2(129, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l8v5m"]
+size = Vector2(1082, 260)
 
 [node name="Final Enemy" type="CharacterBody2D" groups=["Enemies", "Final Enemy"]]
 modulate = Color(1, 0.196078, 0.0627451, 1)
@@ -15,6 +19,7 @@ collision_mask = 4
 script = ExtResource("1_3joak")
 move_speed = 600
 health = 200
+external_dampener = 1.2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_pnwpc")
@@ -22,13 +27,29 @@ shape = SubResource("RectangleShape2D_pnwpc")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_l8wbo")
 
-[node name="Horn sounds" type="Node" parent="."]
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Horn sounds"]
-stream = ExtResource("3_rpvuj")
-volume_db = 0.2
-max_distance = 40000.0
-
 [node name="Timer" type="Timer" parent="."]
 
+[node name="horn sounds" type="Node2D" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="horn sounds"]
+stream = ExtResource("4_d0uwd")
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="horn sounds"]
+stream = ExtResource("5_l8itx")
+
+[node name="Detection Area" type="Area2D" parent="."]
+position = Vector2(-235, 0)
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection Area"]
+position = Vector2(-312, 0)
+scale = Vector2(1, 2.75)
+shape = SubResource("RectangleShape2D_l8v5m")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Detection Area"]
+position = Vector2(771.8, 0)
+scale = Vector2(0.2, 0.6)
+shape = SubResource("RectangleShape2D_l8v5m")
+
+[connection signal="death" from="." to="." method="_on_death"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

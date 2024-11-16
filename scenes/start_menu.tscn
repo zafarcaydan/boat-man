@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwo5ujfyf2w8j"]
+[gd_scene load_steps=3 format=3 uid="uid://bmbp8rq5xllqh"]
 
 [ext_resource type="Texture2D" uid="uid://dg8gs8mipgbta" path="res://ocean.png" id="1_5i570"]
 [ext_resource type="Script" path="res://scripts/start_menu.gd" id="1_b03j6"]
@@ -17,6 +17,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -1048.0
+offset_top = -1149.0
+offset_right = 200.0
+offset_bottom = 603.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_5i570")
