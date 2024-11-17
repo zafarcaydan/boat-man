@@ -50,6 +50,15 @@ alignment = 1
 
 [node name="Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "CLOSE"
+text = "CLOSE MENU"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Button2" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "CLOSE TO TITLE SCREE"
 
 [connection signal="button_down" from="PanelContainer/MarginContainer/VBoxContainer/Button" to="." method="_on_button_button_down"]
+[connection signal="button_up" from="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/Button2" to="." method="_on_button_2_button_up"]

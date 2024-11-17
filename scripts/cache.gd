@@ -1,11 +1,13 @@
 extends OceanFeature
-@export var item_type : int
+@export var item_type : GT.resource_types
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void :
 	super()
 	if item_type != 4: $AnimatedSprite2D.play(GT.resource_types.find_key(item_type))
 	else: $AnimatedSprite2D.play("Compass")
+	item_type = 4
+	print(item_type)
 
 func interact() -> void :
 	match item_type:

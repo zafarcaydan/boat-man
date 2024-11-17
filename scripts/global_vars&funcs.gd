@@ -17,6 +17,16 @@ func increase_super_island_stage() -> void:
 	get_tree().get_first_node_in_group("Super Island").stage += 1
 	get_tree().get_first_node_in_group("Super Island").resources_untaken = true
 	
+	
+func blow_horn(sounds: Node, strength: int, origin: Vector2, is_player: bool = false) -> void:
+	play_random_audio(sounds)
+	if not is_player: 
+		get_player().push_away_from_point(strength, origin)
+		get_player().push_away_from_point.call_deferred(strength * 0.75, origin)
+	for i in get_tree().get_nodes_in_group("Enemies"):
+		i.push_away_from_point(strength, origin)
+		i.push_away_from_point.call_deferred(strength * 0.75, origin)
+		
 func play_random_audio(sounds : Node) -> void:
 	sounds.get_children().pick_random().play()
 	

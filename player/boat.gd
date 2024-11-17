@@ -12,6 +12,7 @@ var time_passed := 0.0
 var future_pos : Vector2
 var fitness : float
 var highest_fitness : float
+var score : float
 
 #GT.resource_types = [amount, name]
 var resources := {}
@@ -35,6 +36,7 @@ func _ready() -> void:
 		%"Inventory Bar".add_child(INVENTORY_SLOT.instantiate())
 	update_inventory_display()
 	
+	
 	%"Health Bar".max_value = health * 2
 	safe_bullets = 0
 	parent = get_parent()
@@ -51,7 +53,8 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Key_Q"): 
 		if stats[&"horn_parts"] == 3: 
 			horn_blown()
-	elif event.is_action_pressed("Key_Escape"): GT.get_ui()[0].add_child(load("res://scenes/upgrade_menu.tscn").instantiate())
+	elif event.is_action_pressed("Key_Escape"): 
+		GT.get_ui()[0].add_child(load("res://scenes/upgrade_menu.tscn").instantiate())
 
 func _physics_process(delta: float) -> void:
 	var move_velocity :=  Input.get_vector("Key_A", "Key_D", "Key_W", "Key_S")
@@ -71,12 +74,12 @@ func _physics_process(delta: float) -> void:
 
 func horn_blown() -> void:
 	stats[&"horn_parts"] = 4
-	GT.play_random_audio($"Horn sounds")
+	GT.blow_horn($"Horn sounds", 750, global_position, true)
 	spawn_enemy(0, preload("res://enimies/final_enemy.tscn"))
 
 #spawning things on the ocean
 func spawn_feature(new_feature: OceanFeature, offset: float, dist_multiplier: float = 1, proximity_limit: float = 0.9) -> bool:
-	new_feature.global_position = Vector2(cos(rotation + offset), sin(rotation + offset)) * spawn_dist + global_position * dist_multiplier
+	new_feature.global_position = Vector2(cos(rotation + offset), sin(rotation + offset)) * spawn_dist * dist_multiplier + global_position 
 	
 	for comparison_feature in get_tree().get_nodes_in_group("Spawnable"):
 		var relative_pos : Vector2 = comparison_feature.global_position - new_feature.global_position
@@ -92,11 +95,12 @@ func spawn_enemy(iteration: int, type: Resource) ->void:
 	add_sibling.call_deferred(new_enemy)
 
 func _on_world_update_timer_timeout() -> void:
-	var resource_amount : int= 0 
+	var resource_amount : int = 0 
 	for i in resources: resource_amount += resources[i][0]
 	fitness =  (stats[&"cannon_ball_speed"] / 250.0 + health)/20.0 + resource_amount / 75.0
 	if fitness > highest_fitness: highest_fitness = fitness
-	
+	score = round((time_passed * 0.9 - highest_fitness * 8) * 100)/ 100
+	$"../UI/MarginContainer/VBoxContainer/Label".text = "score: " + str(score)
 	var spawn_choice : int = [1, 1, 2].pick_random()
 	var offset := atan2(velocity.y, velocity.x)
 	
@@ -116,11 +120,7 @@ func _on_world_update_timer_timeout() -> void:
 			for j in range(9 + int(fitness / 2)): spawn_enemy(j, BASIC_ENEMY)
 			for j in range(int(fitness * 2)): spawn_enemy(j, SPECIAL_ENEMY)
 			offset = atan2(velocity.y, velocity.x)
-			for j in range(6):
-				offset += PI/3
-				var new_additional_island := ISLAND.instantiate()
-				new_additional_island.type = GT.island_types.Port
-				spawn_feature(new_additional_island, offset, 1.92)
+
 func summon_super_island() -> void:
 	var new_super_island := SUPER_ISLAND.instantiate()
 	new_super_island.global_position =  global_position + Vector2.RIGHT.rotated(randf_range(-PI, PI)) * spawn_dist *  7
@@ -135,7 +135,7 @@ func enemy_spawn_button(basic: int = 0, fast: int = 0, special: int = 0) -> void
 	for i in range(special): spawn_enemy(i, SPECIAL_ENEMY)
 	get_tree().get_first_node_in_group("Super Island").resources_untaken =  true
 	GT.increase_super_island_stage()
-	$Trombone7.play()
+	GT.blow_horn($"Island horn sounds", 750, get_tree().get_first_node_in_group("Super Island").global_position)
 	
 
 func check_resource_value(changed_resource:GT.resource_types, value : int) -> bool:
@@ -191,10 +191,11 @@ func super_island_button_ids(id: StringName) -> void:
 		&"__summon_enemies_round_1": enemy_spawn_button(8,12,4)
 		&"__summon_enemies_round_2": enemy_spawn_button(2,18,6)
 		&"_repair": health += 18
-		&"_return_home": pass
+		&"_return_home": 
+			get_tree().paused = false
+			get_tree().change_scene_to_packed.call_deferred(load("res://scenes/ending_screen.tscn"))
 		&"_collect_horn_piece": 
 			GT.erase_super_island_status()
-			compass.visible = false
 			stats[&"horn_parts"] += 1
 		&"_replenish_islands" : get_tree().get_first_node_in_group("Third_Super_Island").replenish_islands()
 			

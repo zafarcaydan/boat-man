@@ -1,0 +1,277 @@
+[gd_scene load_steps=3 format=3 uid="uid://desm8oma8xari"]
+
+[ext_resource type="Texture2D" uid="uid://dg8gs8mipgbta" path="res://ocean.png" id="1_1f3im"]
+[ext_resource type="Script" path="res://scenes/ending_screen.gd" id="1_b78er"]
+
+[node name="Ending Screen" type="Node2D"]
+script = ExtResource("1_b78er")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+top_level = true
+position = Vector2(1200, 1200)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_1f3im")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -444.0
+offset_top = 426.0
+offset_right = 444.0
+offset_bottom = 2763.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 70
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+
+[node name="HBoxContainer0" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer/HBoxContainer0"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "The Return"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Welcome home, 
+you were missing when the other ships returned.
+"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "I got caught in a storm and diverged from the group."
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "You seemed to have turned out okay. You know, 
+they weren't able to find the horn. 
+We’re gonna set sail next week."
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Actually, uhhh, I found th–
+"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "You found the horn!?"
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Uhh, yes, I found the great horn.
+"
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer/HBoxContainer7"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "May I see it?"
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer/HBoxContainer8"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Sure."
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer/HBoxContainer9"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "*hands over the horn*"
+
+[node name="HBoxContainer10" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer/HBoxContainer10"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "I wouldn’t blow it if I were y–
+"
+
+[node name="HBoxContainer11" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer/HBoxContainer11"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "*blows the horn*
+"
+
+[node name="HBoxContainer12" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer/HBoxContainer12"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "*seconds pass* "
+
+[node name="HBoxContainer13" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer/HBoxContainer13"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "What’s that over the horizon?"
+
+[node name="HBoxContainer14" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer/HBoxContainer14"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Oh no, not again."
+
+[node name="HBoxContainer15" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer/HBoxContainer15"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "To the ships. They are coming for their horn."
+
+[node name="Control" type="Control" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Credits:"
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Playtesters: "
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer2/HBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Jain, Tsao, Tu, Verma"
+
+[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer2/HBoxContainer4"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Supporters: "
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer2/HBoxContainer5"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Jain, Tsao, Verma, Zafar S"
+
+[node name="HSeparator3" type="HSeparator" parent="CanvasLayer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer2/HBoxContainer6"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Game Designer & Asset Creator: "
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="CanvasLayer/VBoxContainer/VBoxContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer2/HBoxContainer7"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Caydan Zafar"
+
+[node name="Control2" type="Control" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control3" type="Control" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Close to Title Screen"
+
+[connection signal="button_down" from="CanvasLayer/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_button_down"]

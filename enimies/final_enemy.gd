@@ -25,11 +25,12 @@ func _ready():
 func change_grand_state() -> void:
 	grand_state += 1
 	state = EnemyStateBehaviors.STATES.TOWARD
-	GT.play_random_audio($"horn sounds")
+	GT.blow_horn($"horn sounds", 1000, global_position)
 	health += randi_range(5, 10)
 	external_dampener += 0.25
 	
 func _physics_process(delta):
+	player.time_passed -= 0.006
 	match grand_state:
 		GrandBehaviors.FirstQuarter when health <= initial_health * 0.75: 
 			change_grand_state()

@@ -5,7 +5,7 @@ enum STATES {TOWARD, ATTACK, AWAY}
 func get_rotation_to_pos(pos: Vector2, caller: Node2D) -> float:
 		return atan2(pos.y - caller.global_position.y, pos.x - caller.global_position.x)
 		
-func get_dist_to_pos(pos: Vector2, caller) -> float:
+func get_dist_to_pos(pos: Vector2, caller: Node2D) -> float:
 		return sqrt((caller.global_position.y - pos.y) ** 2 + (caller.global_position.x - pos.x) ** 2)
 
 

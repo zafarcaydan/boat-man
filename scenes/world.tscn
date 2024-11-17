@@ -42,6 +42,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 show_percentage = false
 
+[node name="Label" type="Label" parent="UI/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "score: "
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]

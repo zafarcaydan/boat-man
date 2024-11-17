@@ -9,10 +9,10 @@ func _ready() -> void:
 	super()
 	if type == -1:
 		type = [GT.island_types.Stone, GT.island_types.Stone, GT.island_types.Wood, GT.island_types.Wood,  GT.island_types.Port].pick_random()
-	if type != GT.island_types.Port and randf() < 0.4:
-		var new_island := preload("res://islands/island.tscn").instantiate()
-		new_island. type == GT.island_types.Port
-		player.spawn_feature(new_island, randf_range(0, TAU), player.spawn_dist, 0.3)
+		if randf() < 0.35:
+			var new_island := preload("res://islands/island.tscn").instantiate()
+			new_island. type == [GT.island_types.Stone, GT.island_types.Wood, GT.island_types.Wood, GT.island_types.Port, GT.island_types.Port].pick_random()
+			player.spawn_feature(new_island, randf_range(0, TAU), 1.5, 0.85)
 	set_used_display()
 	
 	

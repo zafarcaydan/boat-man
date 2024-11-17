@@ -58,7 +58,9 @@ stream = ExtResource("4_ifsxx")
 [node name="Trombone3" type="AudioStreamPlayer" parent="Horn sounds"]
 stream = ExtResource("4_h6obo")
 
-[node name="Trombone7" type="AudioStreamPlayer" parent="."]
+[node name="Island horn sounds" type="Node" parent="."]
+
+[node name="Trombone7" type="AudioStreamPlayer" parent="Island horn sounds"]
 stream = ExtResource("7_6ltwp")
 
 [connection signal="death" from="." to="." method="_on_death"]

@@ -62,11 +62,11 @@ func interact() -> void:
 					0:
 						if resources_untaken: post_button([[0, 40]], &"cannon_ballls", 2)
 						post_button([], &"__summon_enemies_round_1", 2)
-					1: post_button([[GT.resource_types.Wood, -3], [GT.resource_types.Stone, -3]], &"repair", 1, true)
+					1: post_button([[GT.resource_types.Wood, -2], [GT.resource_types.Stone, -3]], &"repair", 1, true)
 					2: 
 						if resources_untaken: post_button([[0, 40]], &"cannon_ballls", 2)
 						post_button([], &"__summon_enemies_round_2", 2)
-					3: post_button([[GT.resource_types.Wood, -4], [GT.resource_types.Stone, -2]], &"repair", 1, true)
+					3: post_button([[GT.resource_types.Wood, -3], [GT.resource_types.Stone, -2]], &"repair", 1, true)
 					4: 
 						post_button([], &"_collect_horn_piece", 2)
 						if resources_untaken:
@@ -91,7 +91,7 @@ func interact() -> void:
 				var new_lable := preload("res://scenes/inventory_slot.tscn").instantiate()
 				new_lable.get_child(0).text = "Welcome Home \n Score: " + str(round((player.time_passed * 0.9 - player.highest_fitness * 8) * 100)/ 100)
 				GT.get_ui()[1].add_child(new_lable)
-				post_button([], &"_return_home", 2)
+				post_button([], &"_return_home", 1)
 		if resources_untaken: replenish_islands()
 		resources_untaken = false
 		unused = false

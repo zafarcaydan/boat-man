@@ -39,3 +39,7 @@ func vector_power_determination(vector: Vector2 = velocity) -> float:
 	if abs(vector.x) > 0: return (vector.x / vector.normalized().x)
 	elif abs(vector.y) > 0: return (vector.y / vector.normalized().y)
 	return 0.0
+	
+func push_away_from_point(strength : int, point: Vector2) -> void: 
+	external_force += Vector2.RIGHT.rotated(atan2(point.y - global_position.y, point.x - global_position.x) + PI) * strength / (sqrt((global_position.y - point.y) ** 2 + (global_position.x - point.x) ** 2) / 100 + 1)
+	
