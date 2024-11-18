@@ -78,13 +78,13 @@ func horn_blown() -> void:
 	spawn_enemy(0, preload("res://enimies/final_enemy.tscn"))
 
 #spawning things on the ocean
-func spawn_feature(new_feature: OceanFeature, offset: float, dist_multiplier: float = 1, proximity_limit: float = 0.9) -> bool:
+func spawn_feature(new_feature: OceanFeature, offset: float, dist_multiplier: float = 1, proximity_limit: float = 1) -> bool:
 	new_feature.global_position = Vector2(cos(rotation + offset), sin(rotation + offset)) * spawn_dist * dist_multiplier + global_position 
 	
 	for comparison_feature in get_tree().get_nodes_in_group("Spawnable"):
 		var relative_pos : Vector2 = comparison_feature.global_position - new_feature.global_position
 		
-		if sqrt(relative_pos.x ** 2 + relative_pos.y ** 2) < spawn_dist * proximity_limit * new_feature.comparison_dist * comparison_feature.comparison_dist: 
+		if sqrt(relative_pos.x ** 2 + relative_pos.y ** 2) < spawn_dist * proximity_limit * new_feature.comparison_dist * comparison_feature.comparison_dist + 200: 
 			return false
 	add_sibling.call_deferred(new_feature)
 	return true
@@ -120,6 +120,9 @@ func _on_world_update_timer_timeout() -> void:
 			for j in range(9 + int(fitness / 2)): spawn_enemy(j, BASIC_ENEMY)
 			for j in range(int(fitness * 2)): spawn_enemy(j, SPECIAL_ENEMY)
 			offset = atan2(velocity.y, velocity.x)
+			var additional_new_island := ISLAND.instantiate()
+			additional_new_island.type = GT.island_types.Port
+			spawn_feature(additional_new_island, 0, 1.4, 0.95)
 
 func summon_super_island() -> void:
 	var new_super_island := SUPER_ISLAND.instantiate()

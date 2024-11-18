@@ -9,10 +9,10 @@ func _ready() -> void:
 	super()
 	if type == -1:
 		type = [GT.island_types.Stone, GT.island_types.Stone, GT.island_types.Wood, GT.island_types.Wood,  GT.island_types.Port].pick_random()
-		if randf() < 0.35:
+		if randf() < 0.4:
 			var new_island := preload("res://islands/island.tscn").instantiate()
-			new_island. type == [GT.island_types.Stone, GT.island_types.Wood, GT.island_types.Wood, GT.island_types.Port, GT.island_types.Port].pick_random()
-			player.spawn_feature(new_island, randf_range(0, TAU), 1.5, 0.85)
+			new_island. type == [GT.island_types.Stone, GT.island_types.Wood, GT.island_types.Port, GT.island_types.Port].pick_random()
+			player.spawn_feature(new_island, randf_range(-PI/2, PI/2), 1.6, 0.85)
 	set_used_display()
 	
 	
@@ -56,7 +56,7 @@ func interact() -> void:
 func set_used_display() -> void:
 	if not unused: 
 		$StaticBody2D/AnimatedSprite2D.play("used")
-		comparison_dist = 0.9
+		comparison_dist = 0.95
 	else: 
 		$StaticBody2D/AnimatedSprite2D.play(GT.island_types.find_key(type))
 		comparison_dist = 1.1
