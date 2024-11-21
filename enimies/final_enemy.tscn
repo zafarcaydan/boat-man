@@ -1,18 +1,18 @@
 [gd_scene load_steps=7 format=3 uid="uid://d3vvvj4n33pf1"]
 
 [ext_resource type="Script" path="res://enimies/final_enemy.gd" id="1_3joak"]
-[ext_resource type="Texture2D" uid="uid://byn0sdcxewlci" path="res://icon.svg" id="1_l8wbo"]
+[ext_resource type="Texture2D" uid="uid://cf7udi8363uhx" path="res://enimies/boss.png" id="2_1oy3m"]
 [ext_resource type="AudioStream" uid="uid://dc6u1p0it57bs" path="res://sounds/trombone 4.wav" id="4_d0uwd"]
 [ext_resource type="AudioStream" uid="uid://iq1gtlepuhkf" path="res://sounds/trombone 5.wav" id="5_l8itx"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pnwpc"]
-size = Vector2(129, 128)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pmxyb"]
+radius = 41.0
+height = 144.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l8v5m"]
 size = Vector2(1082, 260)
 
 [node name="Final Enemy" type="CharacterBody2D" groups=["Enemies", "Final Enemy"]]
-modulate = Color(1, 0.196078, 0.0627451, 1)
 scale = Vector2(2, 2)
 collision_layer = 2
 collision_mask = 4
@@ -21,11 +21,14 @@ move_speed = 600
 health = 200
 external_dampener = 1.2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_pnwpc")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_l8wbo")
+position = Vector2(-10, 0)
+texture = ExtResource("2_1oy3m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-21.5, -0.5)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_pmxyb")
 
 [node name="Timer" type="Timer" parent="."]
 
@@ -42,12 +45,12 @@ position = Vector2(-235, 0)
 scale = Vector2(0.5, 0.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detection Area"]
-position = Vector2(-312, 0)
+position = Vector2(-373, 0)
 scale = Vector2(1, 2.75)
 shape = SubResource("RectangleShape2D_l8v5m")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Detection Area"]
-position = Vector2(771.8, 0)
+position = Vector2(857, 0)
 scale = Vector2(0.2, 0.6)
 shape = SubResource("RectangleShape2D_l8v5m")
 

@@ -215,7 +215,7 @@ alignment = 1
 [node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/VBoxContainer2/HBoxContainer3"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
-text = "Jain, Tsao, Tu, Verma"
+text = "Jain, Jones, Tsao, Tu, Verma"
 
 [node name="HSeparator2" type="HSeparator" parent="CanvasLayer/VBoxContainer/VBoxContainer2"]
 layout_mode = 2
