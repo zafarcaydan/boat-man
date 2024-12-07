@@ -18,7 +18,7 @@ radius = 228.0
 [node name="Boat" type="CharacterBody2D" groups=["Boat_Node"]]
 z_index = 1
 script = ExtResource("1_wvsoj")
-spawn_dist = 1800
+spawn_dist = 1875
 render_dist = 4000
 move_speed = 500
 health = 50

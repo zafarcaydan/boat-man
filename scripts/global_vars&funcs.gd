@@ -1,5 +1,6 @@
 extends Node
 
+const INVENTORY_SLOT = preload("res://scenes/inventory_slot.tscn")
 enum resource_types {Cannon_Balls = 0, Wood = 1, Stone = 2} #make all values in acending order, one by one starting from zero, doing it in another manner WILL cause an error
 enum island_types {NULL = -1, Stone = 0, Wood = 1, Port = 2}
 enum super_island_types {First = 1, Second = 2, Third = 3, Home = 5}
@@ -7,6 +8,19 @@ enum super_island_types {First = 1, Second = 2, Third = 3, Home = 5}
 func _ready() -> void:
 	pass
 
+func _input(event) -> void:
+	if event.is_action_pressed("Key_Escape"): 
+		GT.get_ui()[0].add_child(load("res://scenes/upgrade_menu.tscn").instantiate())
+		var lable = INVENTORY_SLOT.instantiate()
+		lable.get_child(0).text = "Locate the horn and return home.\n
+		You may need a few compasses.\n\n
+		Controls:\n
+		W, S, UP, DOWN: Move\n
+		A, D, LEFT, RIGHT: Turn\n
+		SPACE: Shoot Cannon Ball\n
+		E: Interact\n
+		Q: Blow Horn"
+		get_ui()[1].add_child(lable)
 func get_player() -> Player: 
 	return get_tree().get_first_node_in_group("Boat_Node")
 

@@ -75,5 +75,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "QUIT"
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." groups=["UI_Node"]]
+
 [connection signal="button_down" from="MarginContainer/HBoxContainer/VBoxContainer/Start_Button" to="." method="_on_start_button_button_down"]
 [connection signal="button_down" from="MarginContainer/HBoxContainer/VBoxContainer/Quit_Button" to="." method="_on_quit_button_button_down"]

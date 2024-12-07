@@ -53,8 +53,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Key_Q"): 
 		if stats[&"horn_parts"] == 3: 
 			horn_blown()
-	elif event.is_action_pressed("Key_Escape"): 
-		GT.get_ui()[0].add_child(load("res://scenes/upgrade_menu.tscn").instantiate())
+	
 
 func _physics_process(delta: float) -> void:
 	var move_velocity :=  Input.get_vector("Key_A", "Key_D", "Key_W", "Key_S")
